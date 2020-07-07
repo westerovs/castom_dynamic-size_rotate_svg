@@ -1,0 +1,140 @@
+*,
+::before,
+::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: Geometria;
+  background-color: #2C7580;
+  color: #ccc;
+  user-select: none;
+}
+
+/*безопасное скрытие элемента*/
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  /* width: 100%; */
+}
+
+.wrapper {
+  position: relative;
+  margin: 50px 0;
+  padding: 10px;
+  width: 400px;
+  border: 1px solid black;
+}
+
+.img {
+  margin-bottom: 20px;
+  width: 50%;
+  border-radius: 50%;
+}
+
+.outline {
+  outline: 1px solid blue;
+}
+
+.img1 {
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+/* ================ megaclass ================ */
+
+.megaclass {
+  position: absolute;
+  /* top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto; */
+  width: 100px;
+  height: 100px;
+  outline: 1px solid gold;
+  z-index: 999;
+}
+
+.megaclass__size {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: blue;
+  cursor: pointer;
+}
+
+.megaclass__size--top-left {
+  top: -5px;
+  left: -5px;
+}
+
+.megaclass__size--top-right {
+  top: -5px;
+  right: -5px;
+}
+
+.megaclass__size--bottom-left {
+  left: -5px;
+  bottom: -5px;
+}
+
+.megaclass__size--bottom-right {
+  right: -5px;
+  bottom: -5px;
+}
+
+.megaclass__rotate {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: red;
+  cursor: pointer;
+  transition: 0.3s;
+  /* opacity: 0; */
+}
+
+.megaclass__rotate::before {
+  content: "Rotate";
+  position: absolute;
+  left: 20px;
+  font-size: 10px;
+}
+
+.megaclass__rotate:hover {
+  opacity: 1;
+}
+
+.megaclass__rotate--top-left {
+  top: -15px;
+  left: -15px;
+}
+
+.megaclass__rotate--top-right {
+  top: -15px;
+  right: -15px;
+}
+
+.megaclass__rotate--bottom-left {
+  left: -15px;
+  bottom: -15px;
+}
+
+.megaclass__rotate--bottom-right {
+  right: -15px;
+  bottom: -15px;
+}
