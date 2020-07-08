@@ -76,19 +76,11 @@ class Megaclass {
         event.stopPropagation();
         event.preventDefault();
 
-        // сделать эл-т в любом случае абсолютным. (на тот случай если у него margin - auto)
-        document.body.prepend(this.element);
-
-        this.element.style.position = 'absolute';
-        this.element.style.margin = '0';
-        this.element.style.top = `${this.elementBoundingTop}px`;
-        this.element.style.left = `${this.elementBoundingLeft}px`;
-
         this.startTouches = event.targetTouches[0];
         this.startWidth = this.elementWidth;
         this.startHeight = this.elementHeight;
 
-        // // out
+        // out
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.startElementRotate;
@@ -100,7 +92,6 @@ class Megaclass {
         event.stopPropagation();
         event.preventDefault();
         let moveTouches = event.targetTouches[0];
-        console.log(this.element.offsetLeft)
 
         let differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
         let differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
@@ -140,11 +131,11 @@ class Megaclass {
             y: event.changedTouches[0].pageY
         };
 
-        event.target.style.backgroundColor = 'red';
-
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.startElementRotate;
+
+        event.target.style.backgroundColor = 'red';
     }
 
     touchMoveRotate = (event) => {

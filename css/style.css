@@ -29,8 +29,10 @@ body {
 }
 
 img {
+  position: absolute;
   display: block;
   width: 200px;
+  border-radius: 50%;
 }
 
 .wrapper {
@@ -41,9 +43,8 @@ img {
   width: 400px;
 }
 
-.img {
-  margin: 45px auto;
-  border-radius: 50%;
+.img1 {
+  top: 250px;
 }
 
 .svg {
@@ -55,7 +56,7 @@ img {
 /* ================ megaclass ================ */
 .megaclass {
   position: absolute;
-  outline: 1px solid gold;
+  outline: 1px solid darkblue;
   z-index: 999;
 }
 
@@ -129,7 +130,7 @@ img {
 
 /* ****************** out ****************** */
 .megaclass__out-row {
-  outline: 1px solid gold;
+  outline: 1px solid darkblue;
   position: absolute;
   top: 100%;
   left: 50%;
