@@ -55,7 +55,7 @@ img {
   position: absolute;
   top: 50px;
   left: 230px;
-  transform: rotate(0deg);
+  /* transform: rotate(90deg); */
 }
 
 /* ================ megaclass ================ */
@@ -144,6 +144,7 @@ img {
 /* ****************** out ****************** */
 .megaclass__out-row {
   outline: 1px solid black;
+  padding: 5px;
   position: absolute;
   top: 100%;
   left: 50%;
@@ -163,7 +164,6 @@ img {
 .megaclass__out-text {
   margin-left: 20px;
 }
-
 
 .megaclass__out--resete {
   outline: none;
