@@ -1,6 +1,6 @@
-// =============================================================================
+// =================================================
 //                                  megaclass
-// =============================================================================
+// =================================================
 class Megaclass {
     constructor(element) {
         // ===== elem
@@ -9,8 +9,8 @@ class Megaclass {
         this.elementHeight = element.offsetHeight;
         this.elementRotate = element.style.transform;
         this.elementRotate = 0;
-        this.centerElTop = this.element.getBoundingClientRect().top + this.element.offsetHeight / 2;
-        this.centerElLeft = this.element.getBoundingClientRect().left + this.element.offsetWidth / 2;
+        this.centerElTop = 0;
+        this.centerElLeft = 0;
         // for reset
         this.startElementWidth = element.offsetWidth;
         this.startElementHeight = element.offsetHeight;
@@ -56,7 +56,9 @@ class Megaclass {
         this.reset.addEventListener('touchstart', this.resetAll)
     }
 
-    // ======================== SIZE ========================
+    // =======================================================
+    //                          SIZE
+    // =======================================================
     touchStart = (event) => {
         event.stopPropagation();
         event.preventDefault();
@@ -103,18 +105,23 @@ class Megaclass {
         event.target.style.backgroundColor = 'blue';
     }
 
-    // ======================== ROTATE ========================
+    // =======================================================
+    //                          ROTATE
+    // =======================================================
     touchStartRotate = (event) => {
         event.stopPropagation();
         event.preventDefault();
+
+        // get centerEl
+        this.centerElTop = this.element.getBoundingClientRect().top + this.element.offsetHeight / 2;
+        this.centerElLeft = this.element.getBoundingClientRect().left + this.element.offsetWidth / 2;
 
         this.startTouchesRotateX = this.centerElLeft;
         this.startTouchesRotateY = this.centerElTop;
         console.log(this.startTouchesRotateX)
         console.log(this.startTouchesRotateY)
 
-
-        // ======================================================
+        // ==========================
         // this.startTouches = event.targetTouches[0];
         // this.startRotate = this.elementRotate;
         // this.outRotate.innerHTML = `${this.elementRotate}`;
@@ -125,12 +132,13 @@ class Megaclass {
         event.stopPropagation();
         event.preventDefault();
 
-        // get center element !!
-        // let centerElTop = this.element.getBoundingClientRect().top + this.element.offsetHeight / 2;
-        // let centerElLeft = this.element.getBoundingClientRect().left + this.element.offsetWidth / 2;
+        let moveTouchesRotate = event.targetTouches[0];
+        let differenceStartAndMoveRotateX = moveTouchesRotate.pageX - this.startTouchesRotateX;
+        let differenceStartAndMoveRotateY = moveTouchesRotate.pageY - this.startTouchesRotateY;
 
-        console.log(this.element.offsetTop)
-        // ======================================================
+        console.log(`X`, differenceStartAndMoveRotateX)
+        console.log(`Y`, differenceStartAndMoveRotateY)
+        // ==========================
         // let moveTouches = event.targetTouches[0];
         // let differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
         // let differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
@@ -171,7 +179,7 @@ class Megaclass {
     }
 } // end megaclass
 
-// =============================================================================
+// =================================================
 const img1 = document.querySelector('.img1');
 const img2 = document.querySelector('.img2');
 const svg = document.querySelector('.svg');
