@@ -114,10 +114,10 @@ img {
   left: 45px;
   font-size: 10px;
 }
-
+/*
 .megaclass__rotate:hover {
   opacity: 1;
-}
+} */
 
 .megaclass__rotate--top-left {
   top: -30px;

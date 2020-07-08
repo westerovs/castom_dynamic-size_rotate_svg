@@ -34,21 +34,22 @@ class Megaclass {
 
         this.startTouches = 0;
 
+        // size
         this.megaclassSize.forEach(item => {
             item.addEventListener('touchstart', this.touchStart);
             item.addEventListener('touchmove', this.touchMove);
-            item.addEventListener('touchend', this.touchEnd);
         })
 
+        // rotate
         // this.megaclassRotate.forEach(item => {
-        //     item.addEventListener('touchstart', this.touchStart);
-        //     item.addEventListener('touchmove', this.touchMove);
-        //     item.addEventListener('touchend', this.touchEnd);
+        //     item.addEventListener('touchstart', this.touchStartRotate);
+        //     item.addEventListener('touchmove', this.touchMoveRotate);
         // })
 
         this.reset.addEventListener('touchstart', this.resetAll)
     }
 
+    // ======================== size ========================
     touchStart = (event) => {
         event.stopPropagation();
         event.preventDefault();
@@ -86,11 +87,7 @@ class Megaclass {
         this.megaclassBody.style.width = `${this.elementWidth}px`;
     }
 
-    touchEnd = (event) => {
-        event.stopPropagation();
-        event.preventDefault();
-        this.element.style.background = 'blue'
-    }
+    // ======================== rotate ========================
 
     resetAll = () => {
         this.element.style.width = `${this.startElementWidth}px`;
@@ -100,6 +97,10 @@ class Megaclass {
 
         this.elementWidth = this.startElementWidth;
         this.elementHeight = this.startElementHeight;
+
+        this.outWidth.innerHTML = this.elementWidth;
+        this.outHeight.innerHTML = this.elementHeight;
+        this.outRotate.innerHTML = this.elementRotate;
     }
 } // end megaclass
 
