@@ -139,14 +139,15 @@ class Megaclass {
         if (this.progressH <= 1) {
             this.element.style.height = `${Math.abs(this.elementHeight)}px`;
             this.scaleY =- 1;
+            console.warn(this.scaleY);
             this.element.style.transform = `scaleX(${this.scaleX}) scaleY(${this.scaleY})`;
             this.megaclassBody.style.height = `${Math.abs(this.elementHeight)}px`;
 
             // this.megaclassBody.style.transform = `translateX(-) scaleY(-1)`;
         }
-        if (this.progressW > 1) {
-            this.element.style.transform = `scaleX(${Math.abs(this.scaleX)}) scaleY(${Math.abs(this.scaleY)})`;
-        }
+        // if (this.progressW > 1) {
+        //     this.element.style.transform = `scaleX(${Math.abs(this.scaleX)}) scaleY(${Math.abs(this.scaleY)})`;
+        // }
         // if (this.progressH > 1) {
         //     this.element.style.transform = `scaleX(${Math.abs(this.scaleX)}) scaleY(${Math.abs(this.scaleY)})`;
         // }
