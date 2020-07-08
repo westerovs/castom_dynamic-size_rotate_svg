@@ -73,6 +73,7 @@ img {
   width: 20px;
   height: 20px;
   background-color: blue;
+  transition: 0.3s;
   cursor: pointer;
   z-index: 1;
 }
@@ -104,7 +105,7 @@ img {
   border: 3px groove red;
   cursor: pointer;
   transition: 0.3s;
-  opacity: 0.3;
+  opacity: 0.5;
 }
 
 .megaclass__rotate::before {
@@ -114,10 +115,10 @@ img {
   left: 45px;
   font-size: 10px;
 }
-/*
+
 .megaclass__rotate:hover {
   opacity: 1;
-} */
+}
 
 .megaclass__rotate--top-left {
   top: -30px;
@@ -141,7 +142,6 @@ img {
 
 
 /* ****************** out ****************** */
-
 .megaclass__out-row {
   outline: 1px solid black;
   position: absolute;

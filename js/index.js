@@ -38,13 +38,15 @@ class Megaclass {
         this.megaclassSize.forEach(item => {
             item.addEventListener('touchstart', this.touchStart);
             item.addEventListener('touchmove', this.touchMove);
+            item.addEventListener('touchend', this.touchEnd);
         })
 
         // rotate
-        // this.megaclassRotate.forEach(item => {
-        //     item.addEventListener('touchstart', this.touchStartRotate);
-        //     item.addEventListener('touchmove', this.touchMoveRotate);
-        // })
+        this.megaclassRotate.forEach(item => {
+            item.addEventListener('touchstart', this.touchStartRotate);
+            item.addEventListener('touchmove', this.touchMoveRotate);
+            item.addEventListener('touchend', this.touchEndRotate);
+        })
 
         this.reset.addEventListener('touchstart', this.resetAll)
     }
@@ -66,13 +68,14 @@ class Megaclass {
     touchMove = (event) => {
         event.stopPropagation();
         event.preventDefault();
-        this.element.style.background = 'green'
+
+        let moveTouches = event.targetTouches[0];
+
+        event.target.style.backgroundColor = 'red';
 
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.elementRotate;
-
-        let moveTouches = event.targetTouches[0];
 
         // height
         let differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
@@ -87,7 +90,29 @@ class Megaclass {
         this.megaclassBody.style.width = `${this.elementWidth}px`;
     }
 
+    touchEnd = () => {
+        event.target.style.backgroundColor = 'blue';
+    }
+
     // ======================== rotate ========================
+    touchStartRotate = (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+
+        this.startTouches = event.targetTouches[0];
+    }
+
+    touchMoveRotate = (event) => {
+        event.stopPropagation();
+        event.preventDefault();
+
+        let moveTouches = event.targetTouches[0];
+        event.target.style.opacity = '1';
+    }
+
+    touchEndRotate = () => {
+        event.target.style.opacity = '0.5';
+    }
 
     resetAll = () => {
         this.element.style.width = `${this.startElementWidth}px`;
