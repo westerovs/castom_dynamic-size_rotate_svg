@@ -23,10 +23,13 @@ class Megaclass {
         this.megaclassBody = document.querySelector('.megaclass');
         this.megaclassSize = document.querySelectorAll('.megaclass__size');
         this.megaclassRotate = document.querySelectorAll('.megaclass__rotate');
+        this.outRow = document.querySelector('.megaclass__out-row');
         this.outWidth = document.querySelector('.megaclass__out-text-width');
         this.outHeight = document.querySelector('.megaclass__out-text-height');
         this.outRotate = document.querySelector('.megaclass__out-text-rotate');
         this.reset = document.querySelector('.megaclass__out--reset');
+
+
 
         this.startWidth = 0;
         this.startHeight = 0;
@@ -75,6 +78,7 @@ class Megaclass {
 
         // сделать эл-т в любом случае абсолютным. (на тот случай если у него margin - auto)
         document.body.prepend(this.element);
+
         this.element.style.position = 'absolute';
         this.element.style.margin = '0';
         this.element.style.top = `${this.elementBoundingTop}px`;
@@ -116,6 +120,10 @@ class Megaclass {
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.val;
 
+        // рамка в угол
+        document.body.prepend(this.outRow);
+        this.outRow.style.top = `${10}px`;
+        this.outRow.style.left = `${10}px`;
     }
 
     touchEnd = () => {
@@ -171,8 +179,12 @@ class Megaclass {
         this.val = this.degree_angle + this.Nex;
         this.element.style.transform = `rotate(${this.val}deg)`;
         this.megaclassBody.style.transform = `rotate(${this.val}deg)`;
-
         this.outRotate.innerHTML = this.val;
+
+        // рамка в угол
+        document.body.prepend(this.outRow);
+        this.outRow.style.top = `${10}px`;
+        this.outRow.style.left = `${10}px`;
     }
 
     touchEndRotate = () => {

@@ -42,7 +42,7 @@ img {
 }
 
 .img {
-  margin: 45px;
+  margin: 45px auto;
   border-radius: 50%;
 }
 
@@ -53,11 +53,8 @@ img {
 }
 
 /* ================ megaclass ================ */
-
 .megaclass {
   position: absolute;
-  width: 100px;
-  height: 100px;
   outline: 1px solid gold;
   z-index: 999;
 }
@@ -133,14 +130,20 @@ img {
 /* ****************** out ****************** */
 .megaclass__out-row {
   outline: 1px solid gold;
-  padding: 5px;
-  position: absolute;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  /* position: absolute;
   top: 100%;
   left: 50%;
-  transform: translate(-50%, 40%);
+  transform: translate(-50%, 40%); */
+  padding: 5px;
   display: flex;
   flex-direction: column;
   min-width: 80px;
+  background-color: black;
+  color: white;
+  z-index: 999;
 }
 
 .megaclass__out {
