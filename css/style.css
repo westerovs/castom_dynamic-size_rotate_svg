@@ -30,7 +30,6 @@ body {
 
 img {
   display: block;
-  /* width: 100%; */
 }
 
 .wrapper {
@@ -38,7 +37,6 @@ img {
   margin: 50px 0;
   padding: 10px;
   width: 400px;
-  border: 1px solid black;
 }
 
 .img {
@@ -47,15 +45,17 @@ img {
   border-radius: 50%;
 }
 
-.outline {
-  outline: 1px solid blue;
-}
-
 .img1 {
   position: absolute;
-  top: 50px;
-  left: 230px;
+  top: 30px;
+  left: 50px;
   /* transform: rotate(90deg); */
+}
+
+.svg {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
 }
 
 /* ================ megaclass ================ */
@@ -102,10 +102,9 @@ img {
   position: absolute;
   width: 40px;
   height: 40px;
-  border: 3px groove red;
+  border: 3px groove darkblue;
   cursor: pointer;
   transition: 0.3s;
-  opacity: 0.5;
 }
 
 .megaclass__rotate::before {
@@ -114,10 +113,6 @@ img {
   top: 15px;
   left: 45px;
   font-size: 10px;
-}
-
-.megaclass__rotate:hover {
-  opacity: 1;
 }
 
 .megaclass__rotate--top-left {
@@ -143,7 +138,7 @@ img {
 
 /* ****************** out ****************** */
 .megaclass__out-row {
-  outline: 1px solid black;
+  outline: 1px solid gold;
   padding: 5px;
   position: absolute;
   top: 100%;
@@ -159,14 +154,16 @@ img {
   text-align: left;
   display: flex;
   justify-content: space-between;
+  font-family: monospace;
 }
 
 .megaclass__out-text {
   margin-left: 20px;
 }
 
-.megaclass__out--resete {
+.megaclass__out--reset {
   outline: none;
+  margin-top: 5px;
   background-color: red;
   width: 100%;
   text-align: center;
