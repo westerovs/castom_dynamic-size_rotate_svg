@@ -30,17 +30,19 @@ body {
 
 img {
   display: block;
+  width: 200px;
 }
 
 .wrapper {
+  outline: 1px dashed black;
+  margin: 50px;
   position: relative;
   padding: 10px;
   width: 400px;
 }
 
 .img {
-  margin: 45px auto;
-  width: 50%;
+  margin: 45px;
   border-radius: 50%;
 }
 
