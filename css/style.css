@@ -104,8 +104,7 @@ img {
   border: 3px groove red;
   cursor: pointer;
   transition: 0.3s;
-  /* opacity: 0; */
-
+  opacity: 0.3;
 }
 
 .megaclass__rotate::before {
@@ -140,6 +139,7 @@ img {
   bottom: -30px;
 }
 
+
 /* ****************** out ****************** */
 
 .megaclass__out-row {
@@ -165,6 +165,13 @@ img {
 }
 
 
+.megaclass__out--resete {
+  outline: none;
+  background-color: red;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
 
 
 
