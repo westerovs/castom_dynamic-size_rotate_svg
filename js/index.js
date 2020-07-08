@@ -56,6 +56,8 @@ class Megaclass {
         event.stopPropagation();
         event.preventDefault();
 
+        event.target.style.backgroundColor = 'red';
+
         this.startTouches = event.targetTouches[0];
         this.startWidth = this.elementWidth;
         this.startHeight = this.elementHeight;
@@ -70,8 +72,6 @@ class Megaclass {
         event.preventDefault();
 
         let moveTouches = event.targetTouches[0];
-
-        event.target.style.backgroundColor = 'red';
 
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
@@ -99,6 +99,8 @@ class Megaclass {
         event.stopPropagation();
         event.preventDefault();
 
+        event.target.style.opacity = '1';
+
         this.startTouches = event.targetTouches[0];
     }
 
@@ -107,7 +109,6 @@ class Megaclass {
         event.preventDefault();
 
         let moveTouches = event.targetTouches[0];
-        event.target.style.opacity = '1';
     }
 
     touchEndRotate = () => {
