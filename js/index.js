@@ -29,13 +29,19 @@ class Megaclass {
         this.outRotate = document.querySelector('.megaclass__out-text-rotate');
         this.reset = document.querySelector('.megaclass__out--reset');
 
-
-
         this.startWidth = 0;
         this.startHeight = 0;
         this.startRotate = 0;
         this.startTouchesRotateX = 0;
         this.startTouchesRotateY = 0;
+
+        // для зеркальности
+        this.startProgressW = 0;
+        this.startProgressH = 0;
+        this.progressW = 0;
+        this.progressH = 0;
+        this.scaleX = 1;
+        this.scaleY = 1;
 
         this.element.before(this.megaclassBody)
         this.megaclassBody.style.top = `${element.offsetTop}px`;
@@ -85,6 +91,11 @@ class Megaclass {
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.startElementRotate;
 
+        // зеркальность
+        this.startProgressW = this.progressW;
+        this.startProgressР = this.progressР;
+        this.progressW = this.startWidth;
+        this.progressР = this.startHeight;
         event.target.style.backgroundColor = 'red';
     }
 
@@ -110,6 +121,35 @@ class Megaclass {
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.val;
+
+        // зеркальность
+        this.progressW = this.elementWidth;
+        this.progressH = this.elementHeight;
+
+        if (this.progressW <= 1) {
+            this.element.style.width = `${Math.abs(this.elementWidth)}px`;
+            this.scaleX =- 1;
+            this.element.style.transform = `scaleX(${this.scaleX}) scaleY(${this.scaleY})`;
+            this.megaclassBody.style.width = `${Math.abs(this.elementWidth)}px`;
+
+            // this.megaclassBody.style.transform = `scaleX(-1)`;
+            // this.megaclassBody.style.transform = `translateX(${this.progressW}) scaleX(-1)`;
+            // console.log(Math.abs(this.progressW))
+        }
+        if (this.progressH <= 1) {
+            this.element.style.height = `${Math.abs(this.elementHeight)}px`;
+            this.scaleY =- 1;
+            this.element.style.transform = `scaleX(${this.scaleX}) scaleY(${this.scaleY})`;
+            this.megaclassBody.style.height = `${Math.abs(this.elementHeight)}px`;
+
+            // this.megaclassBody.style.transform = `translateX(-) scaleY(-1)`;
+        }
+        if (this.progressW > 1) {
+            this.element.style.transform = `scaleX(${Math.abs(this.scaleX)}) scaleY(${Math.abs(this.scaleY)})`;
+        }
+        // if (this.progressH > 1) {
+        //     this.element.style.transform = `scaleX(${Math.abs(this.scaleX)}) scaleY(${Math.abs(this.scaleY)})`;
+        // }
     }
 
     touchEnd = () => {
