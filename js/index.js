@@ -119,11 +119,6 @@ class Megaclass {
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.val;
-
-        // рамка в угол
-        document.body.prepend(this.outRow);
-        this.outRow.style.top = `${10}px`;
-        this.outRow.style.left = `${10}px`;
     }
 
     touchEnd = () => {
@@ -180,11 +175,6 @@ class Megaclass {
         this.element.style.transform = `rotate(${this.val}deg)`;
         this.megaclassBody.style.transform = `rotate(${this.val}deg)`;
         this.outRotate.innerHTML = this.val;
-
-        // рамка в угол
-        document.body.prepend(this.outRow);
-        this.outRow.style.top = `${10}px`;
-        this.outRow.style.left = `${10}px`;
     }
 
     touchEndRotate = () => {
