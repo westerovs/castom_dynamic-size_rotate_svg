@@ -34,22 +34,14 @@ img {
 
 .wrapper {
   position: relative;
-  margin: 50px 0;
   padding: 10px;
   width: 400px;
 }
 
 .img {
-  margin-bottom: 20px;
+  margin: 45px auto;
   width: 50%;
   border-radius: 50%;
-}
-
-.img1 {
-  position: absolute;
-  top: 30px;
-  left: 50px;
-  /* transform: rotate(90deg); */
 }
 
 .svg {
