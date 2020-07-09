@@ -8,8 +8,10 @@ class Megaclass {
         this.element.style.transform = "rotate(0deg)";
         this.elementWidth = element.offsetWidth;
         this.elementHeight = element.offsetHeight;
-        this.elementBoundingTop = this.element.getBoundingClientRect().top;
-        this.elementBoundingLeft = this.element.getBoundingClientRect().left;
+
+        // this.elementBoundingTop = this.element.getBoundingClientRect().top;
+        // this.elementBoundingLeft = this.element.getBoundingClientRect().left;
+
         this.elementRotate = element.style.transform;
         this.elementRotate = 0;
         this.centerElTop = 0;
@@ -18,8 +20,6 @@ class Megaclass {
         this.startElementWidth = element.offsetWidth;
         this.startElementHeight = element.offsetHeight;
         this.startElementRotate = 0;
-
-
 
         // ===== megaclass
         this.megaclassBody = document.querySelector('.megaclass');
@@ -38,6 +38,7 @@ class Megaclass {
         this.startTouchesRotateX = 0;
         this.startTouchesRotateY = 0;
 
+        // out
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.startElementRotate;
@@ -262,24 +263,24 @@ const img2 = document.querySelector('.img2');
 const img3 = document.querySelector('.img3');
 const svg = document.querySelector('.svg');
 
-// const megaclass = new Megaclass(img3);
+const megaclass = new Megaclass(img3);
 
 
-document.addEventListener('touchstart', runMagic)
-let megaclass = null;
+// document.addEventListener('touchstart', runMagic)
+// let megaclass = null;
 
-function runMagic(event) {
-    console.log(event.target)
+// function runMagic(event) {
+//     console.log(event.target)
 
-    if (event.target.tagName === 'IMG') {
-        if (megaclass) {
-            megaclass.remove();
-        }
-        else {
-        }
-        megaclass = new Megaclass(event.target);
-    }
-}
+//     if (event.target.tagName === 'IMG') {
+//         if (megaclass) {
+//             megaclass.remove();
+//         }
+//         else {
+//         }
+//         megaclass = new Megaclass(event.target);
+//     }
+// }
 
 
 
