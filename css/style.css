@@ -109,31 +109,31 @@ img {
 
 .megaclass__rotate {
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border: 1px groove darkblue;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .megaclass__rotate--top-left {
-  top: -40px;
-  left: -40px;
+  top: -35px;
+  left: -35px;
 }
 
 .megaclass__rotate--top-right {
-  top: -40px;
-  right: -40px;
+  top: -35px;
+  right: -35px;
 }
 
 .megaclass__rotate--bottom-left {
-  left: -40px;
-  bottom: -40px;
+  left: -35px;
+  bottom: -35px;
 }
 
 .megaclass__rotate--bottom-right {
-  right: -40px;
-  bottom: -40px;
+  right: -35px;
+  bottom: -35px;
 }
 
 

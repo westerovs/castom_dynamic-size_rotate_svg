@@ -5,18 +5,8 @@ class Megaclass2 {
     constructor(element) {
         // ===== elem
         this.element = element;
+        // !!! ATTENTION !!! - rotate 0 DEG !!!
         this.element.style.transform = "rotate(0deg)";
-        this.elementWidth = element.offsetWidth;
-        this.elementHeight = element.offsetHeight;
-
-        this.elementRotate = element.style.transform;
-        this.elementRotate = 0;
-        this.centerElTop = 0;
-        this.centerElLeft = 0;
-        // for reset
-        this.startElementWidth = element.offsetWidth;
-        this.startElementHeight = element.offsetHeight;
-        this.startElementRotate = 0;
 
         // ===== megaclass
         this.megaclassBody = document.querySelector('.megaclass');
@@ -30,34 +20,16 @@ class Megaclass2 {
         this.reset = document.querySelector('.megaclass__out--reset');
 
         this.startTouches = 0;
-        this.startWidth = 0;
-        this.startHeight = 0;
-        this.startRotate = 0;
-        this.startTouchesRotateX = 0;
-        this.startTouchesRotateY = 0;
+        // this.startRotate = 0;
 
-        // для зеркальности
-        // this.startProgressW = 0;
-        // this.startProgressH = 0;
-        // this.progressW = 0;
-        // this.progressH = 0;
-        // this.scaleX = 1;
-        // this.scaleY = 1;
-
-        this.reset.addEventListener('touchstart', this.resetAll)
         // ======================================================================
         //                            <g> GROUP </g>
         // ======================================================================
         // this.element.style.transform = 'scale(1) rotateX(0deg)'
-        this.startScaleWidth = 1;
-        this.startScaleHeight = 1;
+        this.startScaleWidth = 0;
+        this.startScaleHeight = 0;
         this.scaleOffsetX = this.element.getBBox().x;
         this.scaleOffsetY = this.element.getBBox().y;
-
-        // this.element.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
-        // this.megaclassBody.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
-
-
 
         this.elementGroupWidth = group.getBoundingClientRect().right - group.getBoundingClientRect().left;
         this.elementGroupHeight = group.getBoundingClientRect().bottom - group.getBoundingClientRect().top;
@@ -93,6 +65,9 @@ class Megaclass2 {
             item.addEventListener('touchmove', this.touchMoveGrRotate);
             item.addEventListener('touchend', this.touchEndGrRotate);
         })
+
+        this.reset.addEventListener('touchstart', this.resetAll)
+
     } // end constructor
     // =======================================================
     //                          SIZE GROOP
@@ -104,6 +79,10 @@ class Megaclass2 {
         this.startTouches = event.targetTouches[0];
         this.startScaleWidth = this.elementGroupWidth;
         this.startScaleHeight = this.elementGroupHeight;
+
+        // this.element.style.transform = `
+        //     scaleX(${this.elementGroupWidth / this.startScaleWidth})
+        //     scaleY(${this.elementGroupHeight / this.startScaleHeight}) `;
 
         // out
         this.outWidth.innerHTML = this.elementGroupWidth;
@@ -136,6 +115,11 @@ class Megaclass2 {
         // out
         this.outWidth.innerHTML = this.elementGroupWidth;
         this.outHeight.innerHTML = this.elementGroupHeight;
+
+
+        console.log(`width:`, this.elementGroupWidth);
+        console.log(`height:`, this.elementGroupHeight);
+        console.log(``)
         // this.outRotate.innerHTML = this.val;
     }
 
@@ -178,7 +162,6 @@ class Megaclass2 {
             x: this.elementBoundingLeft + this.elementGroupWidth / 2,
             y: this.elementBoundingTop + this.elementGroupHeight / 2
         };
-        console.log(center)
 
         this.Dist = Math.atan2(
             (center.x - mouse.x) * (center.y - this.startMouse.y) -
@@ -208,13 +191,6 @@ class Megaclass2 {
         // this.megaclassBody.style.width = `${this.startScaleWidth}px`;
         // this.megaclassBody.style.height = `${this.startScaleHeight}px`;
         // // this.megaclassBody.style.transform = `rotate(${this.startElementRotate}deg)`;
-
-        // this.elementWidth = this.startScaleWidth;
-        // this.elementHeight = this.startScaleHeight;
-
-        // this.outWidth.innerHTML = this.elementWidth;
-        // this.outHeight.innerHTML = this.elementHeight;
-        // this.outRotate.innerHTML = this.startElementRotate;
     }
 
     remove = () => {
