@@ -30,7 +30,6 @@ body {
 
 img {
   position: absolute;
-  display: block;
   width: 200px;
   border-radius: 50%;
 }
@@ -51,17 +50,17 @@ img {
 
 .img2 {
   top: 50px;
-  right: 50px;
+  left: 250px;
 }
 
 
 .img3 {
-  bottom: 50px;
-  left: 50px;
+  top: 350px;
+  left: 350px;
 }
 
 .svg {
-  position: fixed;
+  position: absolute;
   right: 30px;
   bottom: 30px;
 }
@@ -70,6 +69,7 @@ img {
 .megaclass {
   position: absolute;
   outline: 1px solid darkblue;
+  /* display: none; */
   z-index: 999;
 }
 

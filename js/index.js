@@ -29,6 +29,7 @@ class Megaclass {
         this.outRotate = document.querySelector('.megaclass__out-text-rotate');
         this.reset = document.querySelector('.megaclass__out--reset');
 
+        this.startTouches = 0;
         this.startWidth = 0;
         this.startHeight = 0;
         this.startRotate = 0;
@@ -43,13 +44,10 @@ class Megaclass {
         this.scaleX = 1;
         this.scaleY = 1;
 
-        this.element.before(this.megaclassBody)
         this.megaclassBody.style.top = `${element.offsetTop}px`;
         this.megaclassBody.style.left = `${element.offsetLeft}px`;
         this.megaclassBody.style.width = `${element.offsetWidth}px`;
         this.megaclassBody.style.height = `${element.offsetHeight}px`;
-
-        this.startTouches = 0;
 
         // for angle
         this.Nex;
@@ -92,11 +90,11 @@ class Megaclass {
         this.outRotate.innerHTML = this.startElementRotate;
 
         // зеркальность
-        this.startProgressW = this.progressW;
-        this.startProgressР = this.progressР;
-        this.progressW = this.startWidth;
-        this.progressР = this.startHeight;
-        event.target.style.backgroundColor = 'red';
+        // this.startProgressW = this.progressW;
+        // this.startProgressР = this.progressР;
+        // this.progressW = this.startWidth;
+        // this.progressР = this.startHeight;
+        // event.target.style.backgroundColor = 'red';
     }
 
     touchMove = (event) => {
@@ -219,18 +217,52 @@ class Megaclass {
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.startElementRotate;
     }
+
+    remove = () => {
+        // this.resetAll();
+
+        this.megaclassSize.forEach(item => {
+            item.removeEventListener('touchstart', this.touchStart);
+            item.removeEventListener('touchmove', this.touchMove);
+            item.removeEventListener('touchend', this.touchEnd);
+        })
+
+        this.megaclassRotate.forEach(item => {
+            item.removeEventListener('touchstart', this.touchStartRotate);
+            item.removeEventListener('touchmove', this.touchMoveRotate);
+            item.removeEventListener('touchend', this.touchEndRotate);
+        })
+
+        this.reset.removeEventListener('touchstart', this.resetAll)
+
+        // this.megaclassSize.style
+    }
 } // end megaclass
 
 // =================================================
 const img1 = document.querySelector('.img1');
 const img2 = document.querySelector('.img2');
+const img3 = document.querySelector('.img3');
 const svg = document.querySelector('.svg');
 
-const megaclass = new Megaclass(img1);
-
-// console.warn(getComputedStyle(img1).transform);
+// const megaclass = new Megaclass(img3);
 
 
+document.addEventListener('touchstart', runMagic)
+let megaclass = null;
+
+function runMagic(event) {
+    console.log(event.target)
+
+    if (event.target.tagName === 'IMG') {
+        if (megaclass) {
+            megaclass.remove();
+        }
+        else {
+        }
+        megaclass = new Megaclass(event.target);
+    }
+}
 
 
 
@@ -243,39 +275,5 @@ const megaclass = new Megaclass(img1);
 
 
 
-// function size(container) {
-//     const div = document.createElement('div');
-//     div.style.cssText = `
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 40px;
-//     height: 40px;
-//     background: blue;`
-//     container.prepend(div);
-// }
 
 
-// document.addEventListener('click', outline);
-
-// let flag = false;
-// let set = new Set();
-
-// function outline(event) {
-//     flag = !flag;
-//     if (
-//         event.target.tagName === 'IMG' ||
-//         event.target.tagName === 'PNG' ||
-//         event.target.tagName === 'path' ||
-//         event.target.tagName === 'SVG'
-//     ) {
-//         if (!flag) {
-//             event.target.classList.add('outline');
-//             set.add(event.target);
-//             size(event.target)
-//             console.log(event.target.getBoundingClientRect())
-//         } else {
-//             event.target.classList.remove('outline');
-//         }
-//     }
-// }
