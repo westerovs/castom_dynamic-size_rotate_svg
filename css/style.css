@@ -35,17 +35,29 @@ img {
   border-radius: 50%;
 }
 
-.wrapper {
+/* .wrapper {
+  position: relative;
   outline: 1px dashed black;
   margin: 50px;
   position: relative;
   padding: 10px;
   width: 400px;
-}
+} */
 
 .img1 {
   top: 50px;
-  left: 200px;
+  left: 50px;
+}
+
+.img2 {
+  top: 50px;
+  right: 50px;
+}
+
+
+.img3 {
+  bottom: 50px;
+  left: 50px;
 }
 
 .svg {

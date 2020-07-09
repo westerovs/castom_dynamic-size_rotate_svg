@@ -123,33 +123,23 @@ class Megaclass {
         this.outRotate.innerHTML = this.val;
 
         // зеркальность
-        this.progressW = this.elementWidth;
-        this.progressH = this.elementHeight;
-
-        if (this.progressW <= 1) {
-            this.element.style.width = `${Math.abs(this.elementWidth)}px`;
-            this.scaleX =- 1;
-            this.element.style.transform = `scaleX(${this.scaleX}) scaleY(${this.scaleY})`;
-            this.megaclassBody.style.width = `${Math.abs(this.elementWidth)}px`;
-
-            // this.megaclassBody.style.transform = `scaleX(-1)`;
-            // this.megaclassBody.style.transform = `translateX(${this.progressW}) scaleX(-1)`;
-            // console.log(Math.abs(this.progressW))
-        }
-        if (this.progressH <= 1) {
-            this.element.style.height = `${Math.abs(this.elementHeight)}px`;
-            this.scaleY =- 1;
-            console.warn(this.scaleY);
-            this.element.style.transform = `scaleX(${this.scaleX}) scaleY(${this.scaleY})`;
-            this.megaclassBody.style.height = `${Math.abs(this.elementHeight)}px`;
-
-            // this.megaclassBody.style.transform = `translateX(-) scaleY(-1)`;
-        }
-        // if (this.progressW > 1) {
-        //     this.element.style.transform = `scaleX(${Math.abs(this.scaleX)}) scaleY(${Math.abs(this.scaleY)})`;
+        // this.progressW = this.elementWidth;
+        // this.progressH = this.elementHeight;
+        // if (this.progressW <= 1) {
+        //     this.element.style.width = `${Math.abs(this.elementWidth)}px`;
+        //     this.scaleX =- 1;
+        //     this.element.style.transform = `scaleX(${this.scaleX}) scaleY(${this.scaleY})`;
+        //     this.megaclassBody.style.width = `${Math.abs(this.elementWidth)}px`;
         // }
-        // if (this.progressH > 1) {
-        //     this.element.style.transform = `scaleX(${Math.abs(this.scaleX)}) scaleY(${Math.abs(this.scaleY)})`;
+        // if (this.progressH <= 1) {
+        //     this.element.style.height = `${Math.abs(this.elementHeight)}px`;
+        //     this.scaleY =- 1;
+        //     this.element.style.transform = `scaleX(${this.scaleX}) scaleY(${this.scaleY})`;
+        //     this.megaclassBody.style.height = `${Math.abs(this.elementHeight)}px`;
+        // }
+        // else {
+        //     this.element.style.transform = `scaleX(1) scaleY(1)`;
+        //     this.megaclassBody.style.transform = `scaleX(1) scaleY(1)`;
         // }
     }
 
