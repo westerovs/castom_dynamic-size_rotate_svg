@@ -1,7 +1,7 @@
 // =================================================
 //                                  megaclass
 // =================================================
-class Megaclass {
+class Megaclass2 {
     constructor(element) {
         // ===== elem
         this.element = element;
@@ -51,10 +51,22 @@ class Megaclass {
         this.scaleX = 1;
         this.scaleY = 1;
 
-        this.megaclassBody.style.top = `${element.offsetTop}px`;
-        this.megaclassBody.style.left = `${element.offsetLeft}px`;
-        this.megaclassBody.style.width = `${element.offsetWidth}px`;
-        this.megaclassBody.style.height = `${element.offsetHeight}px`;
+        // img
+        // this.megaclassBody.style.top = `${this.element.offsetTop}px`;
+        // this.megaclassBody.style.left = `${this.element.offsetLeft}px`;
+        // this.megaclassBody.style.width = `${this.element.offsetWidth}px`;
+        // this.megaclassBody.style.height = `${this.element.offsetHeight}px`;
+        // this.elementBoundingTop = this.element.getBoundingClientRect().top;
+        // this.elementBoundingLeft = this.element.getBoundingClientRect().left;
+
+        // svg
+        this.elementBoundingTop = this.element.getBoundingClientRect().top;
+        this.elementBoundingLeft = this.element.getBoundingClientRect().left;
+
+        this.megaclassBody.style.top = `${this.elementBoundingTop}px`;
+        this.megaclassBody.style.left = `${this.elementBoundingLeft}px`;
+        this.megaclassBody.style.width = `${this.element.getAttribute('width')}px`;
+        this.megaclassBody.style.height = `${this.element.getAttribute('height')}px`;
 
         // for angle
         this.Nex;
@@ -64,20 +76,20 @@ class Megaclass {
         this.Dist;
 
         // size
-        this.megaclassSize.forEach(item => {
-            item.addEventListener('touchstart', this.touchStart);
-            item.addEventListener('touchmove', this.touchMove);
-            item.addEventListener('touchend', this.touchEnd);
-        })
+        // this.megaclassSize.forEach(item => {
+        //     item.addEventListener('touchstart', this.touchStart);
+        //     item.addEventListener('touchmove', this.touchMove);
+        //     item.addEventListener('touchend', this.touchEnd);
+        // })
 
-        // rotate
-        this.megaclassRotate.forEach(item => {
-            item.addEventListener('touchstart', this.touchStartRotate);
-            item.addEventListener('touchmove', this.touchMoveRotate);
-            item.addEventListener('touchend', this.touchEndRotate);
-        })
+        // // rotate
+        // this.megaclassRotate.forEach(item => {
+        //     item.addEventListener('touchstart', this.touchStartRotate);
+        //     item.addEventListener('touchmove', this.touchMoveRotate);
+        //     item.addEventListener('touchend', this.touchEndRotate);
+        // })
 
-        this.reset.addEventListener('touchstart', this.resetAll)
+        // this.reset.addEventListener('touchstart', this.resetAll)
     }
 
     // =======================================================
@@ -262,8 +274,11 @@ const img1 = document.querySelector('.img1');
 const img2 = document.querySelector('.img2');
 const img3 = document.querySelector('.img3');
 const svg = document.querySelector('.svg');
+const ggg = document.querySelector('.ggg');
 
-const megaclass = new Megaclass(img3);
+console.log(ggg.getBBox())
+
+const megaclass2 = new Megaclass2(svg);
 
 
 // document.addEventListener('touchstart', runMagic)
@@ -281,17 +296,3 @@ const megaclass = new Megaclass(img3);
 //         megaclass = new Megaclass(event.target);
 //     }
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

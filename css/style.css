@@ -65,6 +65,10 @@ img {
   bottom: 30px;
 }
 
+.ggg {
+  outline: 1px dashed gold;
+}
+
 /* ================ megaclass ================ */
 .megaclass {
   position: absolute;
