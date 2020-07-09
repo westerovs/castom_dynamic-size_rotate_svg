@@ -100,7 +100,7 @@ class Megaclass {
         // this.startProgressР = this.progressР;
         // this.progressW = this.startWidth;
         // this.progressР = this.startHeight;
-        
+
         event.target.style.backgroundColor = 'red';
     }
 
