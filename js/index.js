@@ -85,13 +85,12 @@ class Megaclass2 {
         // ======================================================================
         //                              GROUP
         // ======================================================================
-        this.element.style.transform = 'scale(1) rotateX(0deg)'
+        // this.element.style.transform = 'scale(1) rotateX(0deg)'
         this.startScaleWidth = 1;
         this.startScaleHeight = 1;
 
         this.elementGroupWidth = group.getBoundingClientRect().right - group.getBoundingClientRect().left;
         this.elementGroupHeight = group.getBoundingClientRect().bottom - group.getBoundingClientRect().top;
-
         this.elementBoundingTop = this.element.getBoundingClientRect().top;
         this.elementBoundingLeft = this.element.getBoundingClientRect().left;
         this.megaclassBody.style.top = `${this.elementBoundingTop}px`;
@@ -109,7 +108,6 @@ class Megaclass2 {
             item.addEventListener('touchmove', this.touchMoveGr);
             item.addEventListener('touchend', this.touchEndGr);
         })
-
     } // end constructor
     // =======================================================
     //                          SIZE GROOP
@@ -122,6 +120,7 @@ class Megaclass2 {
         this.startScaleWidth = this.elementGroupWidth;
         this.startScaleHeight = this.elementGroupHeight;
 
+        // this.element.style.transformOrigin = '50% 50%';
         // out
         this.outWidth.innerHTML = this.elementGroupWidth;
         this.outHeight.innerHTML = this.elementGroupHeight;
@@ -139,17 +138,17 @@ class Megaclass2 {
 
         // width
         this.elementGroupWidth = this.startScaleWidth + differenceStartMoveX;
-        this.element.style.transform = `scaleX(${this.elementGroupWidth / this.startScaleWidth})`;
-        this.megaclassBody.style.width = `${this.elementGroupWidth}px`;
+        this.elementGroupHeight = this.startScaleHeight + differenceStartMoveY;
 
-        // height
-        // this.elementGroupHeight = this.startScaleHeight + differenceStartMoveY;
-        // this.element.style.transform = `scaleY(${this.elementGroupWidth / this.startScaleWidth})`;
-        // this.megaclassBody.style.height = `${this.elementGroupWidth}px`;
+        this.element.style.transform = `
+            scaleX(${this.elementGroupWidth / this.startScaleWidth})
+            scaleY(${this.elementGroupHeight / this.startScaleHeight})`;
+        this.megaclassBody.style.width = `${Math.trunc(this.elementGroupWidth)}px`;
+        this.megaclassBody.style.height = `${Math.trunc(this.elementGroupHeight)}px`;
 
-        // // out
+        // out
         this.outWidth.innerHTML = this.elementGroupWidth;
-        // this.outHeight.innerHTML = this.elementGroupHeight;
+        this.outHeight.innerHTML = this.elementGroupHeight;
         // this.outRotate.innerHTML = this.val;
     }
 
