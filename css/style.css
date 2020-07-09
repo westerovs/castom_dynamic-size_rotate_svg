@@ -55,8 +55,8 @@ img {
 
 
 .img3 {
-  top: 350px;
-  left: 350px;
+  top: 150px;
+  left: 400px;
 }
 
 .svg {
@@ -110,14 +110,6 @@ img {
   border: 3px groove darkblue;
   cursor: pointer;
   transition: 0.3s;
-}
-
-.megaclass__rotate::before {
-  content: "Rotate";
-  position: absolute;
-  top: 15px;
-  left: 45px;
-  font-size: 10px;
 }
 
 .megaclass__rotate--top-left {
