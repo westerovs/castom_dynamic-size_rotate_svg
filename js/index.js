@@ -22,6 +22,7 @@ class Megaclass2 {
         this.megaclassBody = document.querySelector('.megaclass');
         this.megaclassSize = document.querySelectorAll('.megaclass__size');
         this.megaclassRotate = document.querySelectorAll('.megaclass__rotate');
+        // out
         this.outRow = document.querySelector('.megaclass__out-row');
         this.outWidth = document.querySelector('.megaclass__out-text-width');
         this.outHeight = document.querySelector('.megaclass__out-text-height');
@@ -43,13 +44,6 @@ class Megaclass2 {
         // this.scaleX = 1;
         // this.scaleY = 1;
 
-        // for angle
-        this.Nex;
-        this.degree_angle;
-        this.val = 0;
-        this.startMouse;
-        this.Dist;
-
         this.reset.addEventListener('touchstart', this.resetAll)
         // ======================================================================
         //                            <g> GROUP </g>
@@ -60,7 +54,10 @@ class Megaclass2 {
         this.scaleOffsetX = this.element.getBBox().x;
         this.scaleOffsetY = this.element.getBBox().y;
 
-        this.element.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
+        // this.element.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
+        // this.megaclassBody.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
+
+
 
         this.elementGroupWidth = group.getBoundingClientRect().right - group.getBoundingClientRect().left;
         this.elementGroupHeight = group.getBoundingClientRect().bottom - group.getBoundingClientRect().top;
@@ -75,6 +72,13 @@ class Megaclass2 {
         // out groop
         this.outWidth.innerHTML = this.elementGroupWidth;
         this.outHeight.innerHTML = this.elementGroupHeight;
+
+        // for angle
+        this.Nex;
+        this.degree_angle;
+        this.val = 0;
+        this.startMouse;
+        this.Dist;
 
         // size groop
         this.megaclassSize.forEach(item => {
@@ -112,6 +116,9 @@ class Megaclass2 {
         event.stopPropagation();
         event.preventDefault();
 
+        this.element.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
+        this.megaclassBody.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
+
         let moveTouches = event.targetTouches[0];
         let differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
         let differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
@@ -142,18 +149,16 @@ class Megaclass2 {
     touchStartGrRotate = (event) => {
         event.stopPropagation();
         event.preventDefault();
-        // this.Nex = this.element.style.transform; // this.Nex  -  текущий градус поворода при touchstart
-        // this.Nex = parseFloat(this.Nex.slice(7));
+        this.Nex = this.element.style.transform; // this.Nex  -  текущий градус поворода при touchstart
+        this.Nex = parseFloat(this.Nex.slice(7));
 
-        // this.startMouse = {
-        //     x: event.changedTouches[0].pageX,
-        //     y: event.changedTouches[0].pageY
-        // };
+        this.startMouse = {
+            x: event.changedTouches[0].pageX,
+            y: event.changedTouches[0].pageY
+        };
 
-        // this.outWidth.innerHTML = this.elementWidth;
-        // this.outHeight.innerHTML = this.elementHeight;
-        // this.outRotate.innerHTML = this.startElementRotate;
-
+        // out
+        this.outRotate.innerHTML = this.startElementRotate;
         event.target.style.backgroundColor = 'red';
     }
 
@@ -161,30 +166,34 @@ class Megaclass2 {
         event.stopPropagation();
         event.preventDefault();
 
-        // let mouse = {
-        //     x: event.changedTouches[0].pageX,
-        //     y: event.changedTouches[0].pageY
-        // };
+        this.element.style.transformOrigin = `center`;
+        this.megaclassBody.style.transformOrigin = `center`;
 
-        // let center = {
-        //     x: this.element.offsetLeft + this.element.offsetWidth / 2,
-        //     y: this.element.offsetTop + this.element.offsetHeight / 2
-        // };
+        let mouse = {
+            x: event.changedTouches[0].pageX,
+            y: event.changedTouches[0].pageY
+        };
 
-        // this.Dist = Math.atan2(
-        //     (center.x - mouse.x) * (center.y - this.startMouse.y) -
-        //     (center.y - mouse.y) * (center.x - this.startMouse.x),
-        //     (center.x - mouse.x) * (center.x - this.startMouse.x) +
-        //     (center.y - mouse.y) * (center.y - this.startMouse.y)
-        // );
+        let center = {
+            x: this.elementBoundingLeft + this.elementGroupWidth / 2,
+            y: this.elementBoundingTop + this.elementGroupHeight / 2
+        };
+        console.log(center)
 
-        // this.Dist *= -1;
+        this.Dist = Math.atan2(
+            (center.x - mouse.x) * (center.y - this.startMouse.y) -
+            (center.y - mouse.y) * (center.x - this.startMouse.x),
+            (center.x - mouse.x) * (center.x - this.startMouse.x) +
+            (center.y - mouse.y) * (center.y - this.startMouse.y)
+        );
 
-        // this.degree_angle = this.Dist * (180 / Math.PI);
-        // this.val = this.degree_angle + this.Nex;
-        // this.element.style.transform = `rotate(${this.val}deg)`;
-        // this.megaclassBody.style.transform = `rotate(${this.val}deg)`;
-        // this.outRotate.innerHTML = this.val;
+        this.Dist *= -1;
+
+        this.degree_angle = this.Dist * (180 / Math.PI);
+        this.val = this.degree_angle + this.Nex;
+        this.element.style.transform = `rotate(${this.val}deg)`;
+        this.megaclassBody.style.transform = `rotate(${this.val}deg)`;
+        this.outRotate.innerHTML = this.val;
     }
 
     touchEndGrRotate = () => {
