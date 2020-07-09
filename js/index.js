@@ -38,10 +38,10 @@ class Megaclass2 {
         this.startTouchesRotateX = 0;
         this.startTouchesRotateY = 0;
 
-        // out
-        this.outWidth.innerHTML = this.elementWidth;
-        this.outHeight.innerHTML = this.elementHeight;
-        this.outRotate.innerHTML = this.startElementRotate;
+        // // out img
+        // this.outWidth.innerHTML = this.elementWidth;
+        // this.outHeight.innerHTML = this.elementHeight;
+        // this.outRotate.innerHTML = this.startElementRotate;
 
         // для зеркальности
         this.startProgressW = 0;
@@ -58,22 +58,6 @@ class Megaclass2 {
         // this.megaclassBody.style.height = `${this.element.offsetHeight}px`;
         // this.elementBoundingTop = this.element.getBoundingClientRect().top;
         // this.elementBoundingLeft = this.element.getBoundingClientRect().left;
-
-        // svg
-        // this.elementBoundingTop = this.element.getBoundingClientRect().top;
-        // this.elementBoundingLeft = this.element.getBoundingClientRect().left;
-        // this.megaclassBody.style.top = `${this.elementBoundingTop}px`;
-        // this.megaclassBody.style.left = `${this.elementBoundingLeft}px`;
-        // this.megaclassBody.style.width = `${this.element.getAttribute('width')}px`;
-        // this.megaclassBody.style.height = `${this.element.getAttribute('height')}px`;
-
-        // group
-        this.elementBoundingTop = this.element.getBoundingClientRect().top;
-        this.elementBoundingLeft = this.element.getBoundingClientRect().left;
-        this.megaclassBody.style.top = `${this.elementBoundingTop}px`;
-        this.megaclassBody.style.left = `${this.elementBoundingLeft}px`;
-        this.megaclassBody.style.width = `${this.element.getBBox().width}px`;
-        this.megaclassBody.style.height = `${this.element.getBBox().height}px`;
 
 
         // for angle
@@ -98,6 +82,27 @@ class Megaclass2 {
         // })
 
         // this.reset.addEventListener('touchstart', this.resetAll)
+
+
+        // ======================================================================
+        //                              GROUP
+        // ======================================================================
+        this.element.style.transform = 'scale(2) rotateX(0deg)'
+
+        this.elementGroupWidth = group.getBoundingClientRect().right - group.getBoundingClientRect().left;
+        this.elementGroupHeight = group.getBoundingClientRect().bottom - group.getBoundingClientRect().top;
+
+        this.elementBoundingTop = this.element.getBoundingClientRect().top;
+        this.elementBoundingLeft = this.element.getBoundingClientRect().left;
+        this.megaclassBody.style.top = `${this.elementBoundingTop}px`;
+        this.megaclassBody.style.left = `${this.elementBoundingLeft}px`;
+        this.megaclassBody.style.width = `${this.elementGroupWidth}px`;
+        this.megaclassBody.style.height = `${this.elementGroupHeight}px`;
+
+        // out
+        this.outWidth.innerHTML = this.elementGroupWidth;
+        this.outHeight.innerHTML = this.elementGroupHeight;
+
     }
 
     // =======================================================
@@ -284,7 +289,10 @@ const img3 = document.querySelector('.img3');
 const svg = document.querySelector('.svg');
 const group = document.querySelector('.group');
 
-console.log(group.getBBox())
+// console.log(`width:`, group.getBoundingClientRect().right - group.getBoundingClientRect().left);
+// console.log(`height:`, group.getBoundingClientRect().bottom - group.getBoundingClientRect().top);
+console.log(group.getBBox());
+
 const megaclass2 = new Megaclass2(group);
 
 

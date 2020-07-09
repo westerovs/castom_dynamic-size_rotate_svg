@@ -53,20 +53,20 @@ img {
   left: 250px;
 }
 
-
 .img3 {
   top: 150px;
   left: 400px;
 }
 
 .svg {
+  outline: 1px dotted red;
   position: absolute;
   left: 130px;
-  top: 270px;
+  top: 50px;
 }
 
 .group {
-  outline: 1px dashed gold;
+  /* outline: 1px dashed gold; */
 }
 
 /* ================ megaclass ================ */
