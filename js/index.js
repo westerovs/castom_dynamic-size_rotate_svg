@@ -88,6 +88,10 @@ class Megaclass2 {
         // this.element.style.transform = 'scale(1) rotateX(0deg)'
         this.startScaleWidth = 1;
         this.startScaleHeight = 1;
+        this.scaleOffsetX = this.element.getBBox().x;
+        this.scaleOffsetY = this.element.getBBox().y;
+
+        this.element.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
 
         this.elementGroupWidth = group.getBoundingClientRect().right - group.getBoundingClientRect().left;
         this.elementGroupHeight = group.getBoundingClientRect().bottom - group.getBoundingClientRect().top;
@@ -120,7 +124,6 @@ class Megaclass2 {
         this.startScaleWidth = this.elementGroupWidth;
         this.startScaleHeight = this.elementGroupHeight;
 
-        // this.element.style.transformOrigin = '50% 50%';
         // out
         this.outWidth.innerHTML = this.elementGroupWidth;
         this.outHeight.innerHTML = this.elementGroupHeight;
@@ -136,13 +139,13 @@ class Megaclass2 {
         let differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
         let differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
 
-        // width
+        // width & height
         this.elementGroupWidth = this.startScaleWidth + differenceStartMoveX;
         this.elementGroupHeight = this.startScaleHeight + differenceStartMoveY;
 
         this.element.style.transform = `
             scaleX(${this.elementGroupWidth / this.startScaleWidth})
-            scaleY(${this.elementGroupHeight / this.startScaleHeight})`;
+            scaleY(${this.elementGroupHeight / this.startScaleHeight}) translate(${0}px, ${0}px)`;
         this.megaclassBody.style.width = `${Math.trunc(this.elementGroupWidth)}px`;
         this.megaclassBody.style.height = `${Math.trunc(this.elementGroupHeight)}px`;
 

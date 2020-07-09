@@ -59,7 +59,7 @@ img {
 }
 
 .svg {
-  /* outline: 1px solid red; */
+  background-color: black;
   position: absolute;
   left: 130px;
   top: 50px;
@@ -72,7 +72,7 @@ img {
 /* ================ megaclass ================ */
 .megaclass {
   position: absolute;
-  outline: 1px solid darkblue;
+  outline: 1px solid red;
   /* display: none; */
   z-index: 999;
 }
