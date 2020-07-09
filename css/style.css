@@ -61,11 +61,11 @@ img {
 
 .svg {
   position: absolute;
-  right: 30px;
-  bottom: 30px;
+  left: 130px;
+  top: 270px;
 }
 
-.ggg {
+.group {
   outline: 1px dashed gold;
 }
 

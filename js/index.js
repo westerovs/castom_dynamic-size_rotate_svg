@@ -60,13 +60,21 @@ class Megaclass2 {
         // this.elementBoundingLeft = this.element.getBoundingClientRect().left;
 
         // svg
+        // this.elementBoundingTop = this.element.getBoundingClientRect().top;
+        // this.elementBoundingLeft = this.element.getBoundingClientRect().left;
+        // this.megaclassBody.style.top = `${this.elementBoundingTop}px`;
+        // this.megaclassBody.style.left = `${this.elementBoundingLeft}px`;
+        // this.megaclassBody.style.width = `${this.element.getAttribute('width')}px`;
+        // this.megaclassBody.style.height = `${this.element.getAttribute('height')}px`;
+
+        // group
         this.elementBoundingTop = this.element.getBoundingClientRect().top;
         this.elementBoundingLeft = this.element.getBoundingClientRect().left;
-
         this.megaclassBody.style.top = `${this.elementBoundingTop}px`;
         this.megaclassBody.style.left = `${this.elementBoundingLeft}px`;
-        this.megaclassBody.style.width = `${this.element.getAttribute('width')}px`;
-        this.megaclassBody.style.height = `${this.element.getAttribute('height')}px`;
+        this.megaclassBody.style.width = `${this.element.getBBox().width}px`;
+        this.megaclassBody.style.height = `${this.element.getBBox().height}px`;
+
 
         // for angle
         this.Nex;
@@ -274,11 +282,10 @@ const img1 = document.querySelector('.img1');
 const img2 = document.querySelector('.img2');
 const img3 = document.querySelector('.img3');
 const svg = document.querySelector('.svg');
-const ggg = document.querySelector('.ggg');
+const group = document.querySelector('.group');
 
-console.log(ggg.getBBox())
-
-const megaclass2 = new Megaclass2(svg);
+console.log(group.getBBox())
+const megaclass2 = new Megaclass2(group);
 
 
 // document.addEventListener('touchstart', runMagic)
