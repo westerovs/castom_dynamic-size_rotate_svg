@@ -82,12 +82,12 @@ class Megaclass2 {
         // })
 
         // this.reset.addEventListener('touchstart', this.resetAll)
-
-
         // ======================================================================
         //                              GROUP
         // ======================================================================
-        this.element.style.transform = 'scale(2) rotateX(0deg)'
+        this.element.style.transform = 'scale(1) rotateX(0deg)'
+        this.startScaleWidth = 1;
+        this.startScaleHeight = 1;
 
         this.elementGroupWidth = group.getBoundingClientRect().right - group.getBoundingClientRect().left;
         this.elementGroupHeight = group.getBoundingClientRect().bottom - group.getBoundingClientRect().top;
@@ -99,140 +99,64 @@ class Megaclass2 {
         this.megaclassBody.style.width = `${this.elementGroupWidth}px`;
         this.megaclassBody.style.height = `${this.elementGroupHeight}px`;
 
-        // out
+        // out groop
         this.outWidth.innerHTML = this.elementGroupWidth;
         this.outHeight.innerHTML = this.elementGroupHeight;
 
-    }
+        // size groop
+        this.megaclassSize.forEach(item => {
+            item.addEventListener('touchstart', this.touchStartGr);
+            item.addEventListener('touchmove', this.touchMoveGr);
+            item.addEventListener('touchend', this.touchEndGr);
+        })
 
+    } // end constructor
     // =======================================================
-    //                          SIZE
+    //                          SIZE GROOP
     // =======================================================
-    touchStart = (event) => {
+    touchStartGr = (event) => {
         event.stopPropagation();
         event.preventDefault();
 
         this.startTouches = event.targetTouches[0];
-        this.startWidth = this.elementWidth;
-        this.startHeight = this.elementHeight;
+        this.startScaleWidth = this.elementGroupWidth;
+        this.startScaleHeight = this.elementGroupHeight;
 
         // out
-        this.outWidth.innerHTML = this.elementWidth;
-        this.outHeight.innerHTML = this.elementHeight;
-        this.outRotate.innerHTML = this.startElementRotate;
-
-        // зеркальность
-        // this.startProgressW = this.progressW;
-        // this.startProgressР = this.progressР;
-        // this.progressW = this.startWidth;
-        // this.progressР = this.startHeight;
+        this.outWidth.innerHTML = this.elementGroupWidth;
+        this.outHeight.innerHTML = this.elementGroupHeight;
 
         event.target.style.backgroundColor = 'red';
     }
 
-    touchMove = (event) => {
+    touchMoveGr = (event) => {
         event.stopPropagation();
         event.preventDefault();
-        let moveTouches = event.targetTouches[0];
 
+        let moveTouches = event.targetTouches[0];
         let differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
         let differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
 
-        // height
-        this.elementHeight = this.startHeight + differenceStartMoveY;
-        this.element.style.height = `${this.elementHeight}px`;
-        this.megaclassBody.style.height = `${this.elementHeight}px`;
-
         // width
-        this.elementWidth = this.startWidth + differenceStartMoveX;
-        this.element.style.width = `${this.elementWidth}px`;
-        this.megaclassBody.style.width = `${this.elementWidth}px`;
+        this.elementGroupWidth = this.startScaleWidth + differenceStartMoveX;
+        this.element.style.transform = `scaleX(${this.elementGroupWidth / this.startScaleWidth})`;
+        this.megaclassBody.style.width = `${this.elementGroupWidth}px`;
 
-        // out
-        this.outWidth.innerHTML = this.elementWidth;
-        this.outHeight.innerHTML = this.elementHeight;
-        this.outRotate.innerHTML = this.val;
+        // height
+        // this.elementGroupHeight = this.startScaleHeight + differenceStartMoveY;
+        // this.element.style.transform = `scaleY(${this.elementGroupWidth / this.startScaleWidth})`;
+        // this.megaclassBody.style.height = `${this.elementGroupWidth}px`;
 
-        // зеркальность
-        // this.progressW = this.elementWidth;
-        // this.progressH = this.elementHeight;
-        // if (this.progressW <= 1) {
-        //     this.element.style.width = `${Math.abs(this.elementWidth)}px`;
-        //     this.scaleX =- 1;
-        //     this.element.style.transform = `scaleX(${this.scaleX}) scaleY(${this.scaleY})`;
-        //     this.megaclassBody.style.width = `${Math.abs(this.elementWidth)}px`;
-        // }
-        // if (this.progressH <= 1) {
-        //     this.element.style.height = `${Math.abs(this.elementHeight)}px`;
-        //     this.scaleY =- 1;
-        //     this.element.style.transform = `scaleX(${this.scaleX}) scaleY(${this.scaleY})`;
-        //     this.megaclassBody.style.height = `${Math.abs(this.elementHeight)}px`;
-        // }
-        // else {
-        //     this.element.style.transform = `scaleX(1) scaleY(1)`;
-        //     this.megaclassBody.style.transform = `scaleX(1) scaleY(1)`;
-        // }
+        // // out
+        this.outWidth.innerHTML = this.elementGroupWidth;
+        // this.outHeight.innerHTML = this.elementGroupHeight;
+        // this.outRotate.innerHTML = this.val;
     }
 
-    touchEnd = () => {
+    touchEndGr = () => {
         event.target.style.backgroundColor = 'blue';
     }
 
-    // =======================================================
-    //                          ROTATE
-    // =======================================================
-    touchStartRotate = (event) => {
-        event.stopPropagation();
-        event.preventDefault();
-
-        this.Nex = this.element.style.transform; // this.Nex  -  текущий градус поворода при touchstart
-        this.Nex = parseFloat(this.Nex.slice(7));
-
-        this.startMouse = {
-            x: event.changedTouches[0].pageX,
-            y: event.changedTouches[0].pageY
-        };
-
-        this.outWidth.innerHTML = this.elementWidth;
-        this.outHeight.innerHTML = this.elementHeight;
-        this.outRotate.innerHTML = this.startElementRotate;
-
-        event.target.style.backgroundColor = 'red';
-    }
-
-    touchMoveRotate = (event) => {
-        event.stopPropagation();
-        event.preventDefault();
-
-        let mouse = {
-            x: event.changedTouches[0].pageX,
-            y: event.changedTouches[0].pageY
-        };
-
-        let center = {
-            x: this.element.offsetLeft + this.element.offsetWidth / 2,
-            y: this.element.offsetTop + this.element.offsetHeight / 2
-        };
-
-        this.Dist = Math.atan2(
-            (center.x - mouse.x) * (center.y - this.startMouse.y) -
-            (center.y - mouse.y) * (center.x - this.startMouse.x),
-            (center.x - mouse.x) * (center.x - this.startMouse.x) +
-            (center.y - mouse.y) * (center.y - this.startMouse.y)
-        );
-
-        this.Dist *= -1;
-
-        this.degree_angle = this.Dist * (180 / Math.PI);
-        this.val = this.degree_angle + this.Nex;
-        this.element.style.transform = `rotate(${this.val}deg)`;
-        this.megaclassBody.style.transform = `rotate(${this.val}deg)`;
-        this.outRotate.innerHTML = this.val;
-    }
-
-    touchEndRotate = () => {
-        event.target.style.backgroundColor = 'transparent';
-    }
 
     resetAll = () => {
         this.element.style.width = `${this.startElementWidth}px`;
