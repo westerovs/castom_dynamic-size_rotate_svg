@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // =================================================
 //                                  selection
 // =================================================
@@ -219,7 +220,6 @@ class Selection {
 const group = document.querySelector('.group');
 console.log(group.getBBox());
 const selection = new Selection(group);
-
 
 // document.addEventListener('touchstart', runMagic)
 // let selection = null;

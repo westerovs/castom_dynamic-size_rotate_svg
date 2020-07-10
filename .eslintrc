@@ -46,6 +46,9 @@
         "import/no-extraneous-dependencies": 0,
         "no-plusplus": "off",
         "default-case": "off",
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "no-multiple-empty-lines": [
+            "error", { "max": 2, "maxEOF": 0
+        }]
     }
 }
