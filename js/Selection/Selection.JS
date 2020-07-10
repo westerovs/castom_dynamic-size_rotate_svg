@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
 // =================================================
 //                                  selection
 // =================================================
@@ -6,8 +6,8 @@ class Selection {
     constructor(element) {
         // ===== elem
         this.element = element;
-        this.elementWidth = group.getBoundingClientRect().right - group.getBoundingClientRect().left;
-        this.elementHeight = group.getBoundingClientRect().bottom - group.getBoundingClientRect().top;
+        this.elementWidth = this.element.getBoundingClientRect().right - this.element.getBoundingClientRect().left;
+        this.elementHeight = this.element.getBoundingClientRect().bottom - this.element.getBoundingClientRect().top;
         this.elementTop = this.element.getBoundingClientRect().top;
         this.elementLeft = this.element.getBoundingClientRect().left;
         this.element.style.transform = 'rotate(0deg)'; // !!! warning !!!
@@ -38,29 +38,28 @@ class Selection {
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         // this.outRotate.innerHTML = this.elementHeight;
-        this.reset.addEventListener('touchstart', this.resetAll)
+        this.reset.addEventListener('touchstart', this.resetAll);
 
         // angle rotate on move
-        this.Nex;
-        this.degree_angle;
+        this.Nex = null;
+        this.degree_angle = null;
         this.val = 0;
-        this.startMouse;
-        this.Dist;
+        this.startMouse = null;
+        this.Dist = null;
 
         // change size
         this.selectionBtnSize.forEach(item => {
             item.addEventListener('touchstart', this.touchStartSize);
             item.addEventListener('touchmove', this.touchMoveSize);
             item.addEventListener('touchend', this.touchEndSize);
-        })
+        });
 
         // change rotate
         this.selectionBtnRotate.forEach(item => {
             item.addEventListener('touchstart', this.touchStartRotate);
             item.addEventListener('touchmove', this.touchMoveRotate);
             item.addEventListener('touchend', this.touchEndRotate);
-        })
-
+        });
     } // end constructor
 
     // =======================================================
@@ -88,9 +87,9 @@ class Selection {
         this.element.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
         this.selection.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
 
-        let moveTouches = event.targetTouches[0];
-        let differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
-        let differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
+        const moveTouches = event.targetTouches[0];
+        const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
+        const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
 
         // width & height
         this.elementWidth = this.startScaleWidth + differenceStartMoveX;
@@ -109,11 +108,11 @@ class Selection {
 
         console.log(`width:`, this.elementWidth);
         console.log(`height:`, this.elementHeight);
-        console.log(``)
+        console.log(``);
         // this.outRotate.innerHTML = this.val;
     }
 
-    touchEndSize = () => {
+    touchEndSize = (event) => {
         event.target.style.backgroundColor = 'blue';
     }
 
@@ -144,12 +143,12 @@ class Selection {
         this.element.style.transformOrigin = `center`;
         this.selection.style.transformOrigin = `center`;
 
-        let mouse = {
+        const mouse = {
             x: event.changedTouches[0].pageX,
             y: event.changedTouches[0].pageY
         };
 
-        let center = {
+        const center = {
             x: this.elementLeft + this.elementWidth / 2,
             y: this.elementTop + this.elementHeight / 2
         };
@@ -170,14 +169,14 @@ class Selection {
         this.outRotate.innerHTML = this.val;
     }
 
-    touchEndRotate = () => {
+    touchEndRotate = (event) => {
         event.target.style.backgroundColor = 'transparent';
     }
 
     // **********************************************************************************
 
     resetAll = () => {
-        console.log(`reset`)
+        console.log(`reset`);
         // this.element.style.transform = `scaleX(${1}) scaleY(${1})`;
         // this.selection.style.width = `${this.startScaleWidth}px`;
         // this.selection.style.height = `${this.startScaleHeight}px`;
@@ -219,7 +218,7 @@ class Selection {
 // =================================================
 const group = document.querySelector('.group');
 console.log(group.getBBox());
-const selection = new Selection(group);
+
 
 // document.addEventListener('touchstart', runMagic)
 // let selection = null;
@@ -236,3 +235,6 @@ const selection = new Selection(group);
 //         selection = new selection(event.target);
 //     }
 // }
+
+
+const selection = new Selection(group);

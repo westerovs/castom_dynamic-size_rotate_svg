@@ -21,7 +21,8 @@
     "rules": {
         // 0 - off, 1 - warn, 2 - error
         "no-await-in-loop": "error",
-        "no-console": "error",
+        // "no-console": "error",
+        "no-console": "off",
         "comma-dangle": "off",
         "indent": [
             "error",
@@ -49,6 +50,11 @@
         "linebreak-style": "off",
         "no-multiple-empty-lines": [
             "error", { "max": 2, "maxEOF": 0
-        }]
+        }],
+        "max-len": "off",
+        "arrow-parens": "off",
+        "prefer-destructuring": "off",
+        "operator-linebreak": "off",
+        "eol-last": "off"
     }
 }
