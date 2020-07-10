@@ -34,15 +34,6 @@ img {
   border-radius: 50%;
 }
 
-/* .wrapper {
-  position: relative;
-  outline: 1px dashed black;
-  margin: 50px;
-  position: relative;
-  padding: 10px;
-  width: 400px;
-} */
-
 .img1 {
   top: 50px;
   left: 50px;
@@ -68,112 +59,6 @@ img {
 .group {
   outline: 1px dashed gold;
 }
-
-/* ================ megaclass ================ */
-.megaclass {
-  position: absolute;
-  outline: 1px solid red;
-  /* display: none; */
-  z-index: 999;
-}
-
-.megaclass__size {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: blue;
-  transition: 0.3s;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.megaclass__size--top-left {
-  top: -20px;
-  left: -20px;
-}
-
-.megaclass__size--top-right {
-  top: -20px;
-  right: -20px;
-}
-
-.megaclass__size--bottom-left {
-  left: -20px;
-  bottom: -20px;
-}
-
-.megaclass__size--bottom-right {
-  right: -20px;
-  bottom: -20px;
-}
-
-.megaclass__rotate {
-  position: absolute;
-  width: 35px;
-  height: 35px;
-  border: 1px groove darkblue;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.megaclass__rotate--top-left {
-  top: -35px;
-  left: -35px;
-}
-
-.megaclass__rotate--top-right {
-  top: -35px;
-  right: -35px;
-}
-
-.megaclass__rotate--bottom-left {
-  left: -35px;
-  bottom: -35px;
-}
-
-.megaclass__rotate--bottom-right {
-  right: -35px;
-  bottom: -35px;
-}
-
-
-/* ****************** out ****************** */
-.megaclass__out-row {
-  outline: 1px solid darkblue;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, 55%);
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  min-width: 80px;
-  background-color: black;
-  color: white;
-  z-index: 999;
-}
-
-.megaclass__out {
-  width: 100%;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  font-family: monospace;
-}
-
-.megaclass__out-text {
-  margin-left: 20px;
-}
-
-.megaclass__out--reset {
-  outline: none;
-  margin-top: 5px;
-  background-color: red;
-  width: 100%;
-  text-align: center;
-  justify-content: center;
-}
-
 
 
 
