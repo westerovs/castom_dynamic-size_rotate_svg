@@ -12,6 +12,7 @@
     width: 20px;
     height: 20px;
     background-color: blue;
+    border-radius: 50%;
     transition: 0.3s;
     cursor: pointer;
     z-index: 1;
@@ -42,6 +43,7 @@
     width: 35px;
     height: 35px;
     border: 1px groove darkblue;
+    border-radius: 50%;
     cursor: pointer;
     transition: 0.3s;
   }
@@ -103,5 +105,4 @@
     text-align: center;
     justify-content: center;
   }
-  
   
