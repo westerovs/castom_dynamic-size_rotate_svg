@@ -11,7 +11,6 @@ class Selection {
         this.elementLeft = this.element.getBoundingClientRect().left;
         this.element.style.transform = 'rotate(0deg)'; // !!! warning !!!
 
-
         this.scaleOffsetX = this.element.getBBox().x;
         this.scaleOffsetY = this.element.getBBox().y;
 
