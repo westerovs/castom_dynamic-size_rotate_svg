@@ -46,6 +46,7 @@
     border-radius: 50%;
     cursor: pointer;
     transition: 0.3s;
+    clip-path: circle(150px at 0 100px);
   }
   
   .selection__rotate--top-left {

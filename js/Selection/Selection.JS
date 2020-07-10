@@ -1,7 +1,4 @@
 /* eslint-disable no-param-reassign */
-// =================================================
-//                                  selection
-// =================================================
 class Selection {
     constructor(element) {
         // ===== elem
@@ -34,7 +31,7 @@ class Selection {
         this.selection.style.left = `${this.elementLeft}px`;
         this.selection.style.width = `${this.elementWidth}px`;
         this.selection.style.height = `${this.elementHeight}px`;
-        // block out
+        // row out
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         // this.outRotate.innerHTML = this.elementHeight;
@@ -63,7 +60,7 @@ class Selection {
     } // end constructor
 
     // =======================================================
-    //                          SIZE GROOP
+    //                          SIZE
     // =======================================================
     touchStartSize = (event) => {
         event.stopPropagation();
@@ -76,6 +73,10 @@ class Selection {
         // out
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
+        this.outRotate.innerHTML = this.val;
+
+        this.element.style.transform = `rotate(${this.val}deg)`;
+        this.selection.style.transform = `rotate(${this.val}deg)`;
 
         event.target.style.backgroundColor = 'red';
     }
@@ -104,12 +105,6 @@ class Selection {
         // out
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
-
-
-        console.log(`width:`, this.elementWidth);
-        console.log(`height:`, this.elementHeight);
-        console.log(``);
-        // this.outRotate.innerHTML = this.val;
     }
 
     touchEndSize = (event) => {
@@ -166,6 +161,8 @@ class Selection {
         this.val = this.degree_angle + this.Nex;
         this.element.style.transform = `rotate(${this.val}deg)`;
         this.selection.style.transform = `rotate(${this.val}deg)`;
+
+        // out
         this.outRotate.innerHTML = this.val;
     }
 
@@ -217,7 +214,9 @@ class Selection {
 
 // =================================================
 const group = document.querySelector('.group');
-console.log(group.getBBox());
+// console.log(group.getBBox());
+// eslint-disable-next-line no-unused-vars
+const selection = new Selection(group);
 
 
 // document.addEventListener('touchstart', runMagic)
@@ -235,6 +234,3 @@ console.log(group.getBBox());
 //         selection = new selection(event.target);
 //     }
 // }
-
-
-const selection = new Selection(group);
