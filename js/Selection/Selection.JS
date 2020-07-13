@@ -10,6 +10,9 @@ class Selection {
         this.elementTranslateOffsetX = this.element.getBBox().x;
         this.elementTranslateOffsetY = this.element.getBBox().y;
         this.startRotate = 0; // ! warning !
+        this.element.style.opacity = '0.5';
+        // this.element.style.outline = '0';
+
 
         // ===== selection
         this.selection = document.querySelector('.selection');
@@ -43,7 +46,7 @@ class Selection {
         // ===== for atan function
         this.startTouches = 0;
         this.Nex = 0;
-        this.degree_angle = 0;
+        this.degreeAngle = 0;
         this.val = 0;
         this.startMouse = 0;
         this.Dist = 0;
@@ -79,7 +82,6 @@ class Selection {
         event.preventDefault();
 
         this.startTouches = event.targetTouches[0];
-
         this.startElementWidth = this.elementWidth;
         this.startElementHeight = this.elementHeight;
 
@@ -87,7 +89,6 @@ class Selection {
         // this.outWidth.innerHTML = this.startElementWidth;
         // this.outHeight.innerHTML = this.elementHeight;
         // this.outRotate.innerHTML = this.val;
-
         event.target.style.backgroundColor = 'red';
     }
 
@@ -109,14 +110,21 @@ class Selection {
 
         this.element.style.transform = `
             scaleX(${this.elementWidth / this.startElementWidth})
-            scaleY(${this.elementHeight / this.startElementHeight})`;
+            scaleY(${this.elementHeight / this.startElementHeight})
+            `;
+        // rotate(${this.val}deg)
 
         this.selection.style.width = `${this.elementWidth}px`;
         this.selection.style.height = `${this.elementHeight}px`;
+        this.selection.style.transform = `rotate(${this.val}deg)`;
+
 
         // out
         this.outWidth.innerHTML = this.elementWidth + differenceStartMoveX;
         this.outHeight.innerHTML = this.elementHeight + differenceStartMoveY;
+
+        // console.warn(`val`, this.val);
+        console.log(`MoveSize`);
     }
 
     touchEndSize = (event) => {
@@ -168,9 +176,13 @@ class Selection {
         );
 
         this.Dist *= -1;
-        this.degree_angle = this.Dist * (180 / Math.PI);
-        this.val = this.degree_angle + this.Nex;
+        this.degreeAngle = this.Dist * (180 / Math.PI);
+        this.val = this.degreeAngle + this.Nex;
         this.element.style.transform = `rotate(${this.val}deg)`;
+
+        // scaleX(${this.elementWidth / this.startElementWidth})
+        // scaleY(${this.elementHeight / this.startElementHeight})
+
         this.selection.style.transform = `rotate(${this.val}deg)`;
 
         // progress
@@ -223,12 +235,11 @@ const group = document.querySelector('.group');
 const selection = new Selection(group);
 
 
-// document.addEventListener('touchstart', runMagic)
+// document.addEventListener('touchstart', runMagic);
 // let selection = null;
 
 // function runMagic(event) {
 //     console.log(event.target)
-
 //     if (event.target.tagName === 'IMG') {
 //         if (selection) {
 //             selection.remove();
