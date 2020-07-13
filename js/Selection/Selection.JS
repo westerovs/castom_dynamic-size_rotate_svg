@@ -71,6 +71,11 @@ class Selection {
             item.addEventListener('touchmove', this.touchMoveRotate);
             item.addEventListener('touchend', this.touchEndRotate);
         });
+
+        this.scale = {
+            x: 1,
+            y: 1
+        };
     } // end constructor
 
 
@@ -85,10 +90,6 @@ class Selection {
         this.startElementWidth = this.elementWidth;
         this.startElementHeight = this.elementHeight;
 
-        // out
-        // this.outWidth.innerHTML = this.startElementWidth;
-        // this.outHeight.innerHTML = this.elementHeight;
-        // this.outRotate.innerHTML = this.val;
         event.target.style.backgroundColor = 'red';
     }
 
@@ -108,23 +109,24 @@ class Selection {
         this.elementWidth = (this.startElementWidth + differenceStartMoveX);
         this.elementHeight = (this.startElementHeight + differenceStartMoveY);
 
+        this.scale = {
+            x: this.elementWidth / this.startElementWidth,
+            y: this.elementHeight / this.startElementHeight
+        };
+
         this.element.style.transform = `
-            scaleX(${this.elementWidth / this.startElementWidth})
-            scaleY(${this.elementHeight / this.startElementHeight})
+            scaleX(${this.scale.x})
+            scaleY(${this.scale.y})
+            rotate(${this.val}deg)
             `;
-        // rotate(${this.val}deg)
 
         this.selection.style.width = `${this.elementWidth}px`;
         this.selection.style.height = `${this.elementHeight}px`;
         this.selection.style.transform = `rotate(${this.val}deg)`;
 
-
         // out
-        this.outWidth.innerHTML = this.elementWidth + differenceStartMoveX;
-        this.outHeight.innerHTML = this.elementHeight + differenceStartMoveY;
-
-        // console.warn(`val`, this.val);
-        console.log(`MoveSize`);
+        this.outWidth.innerHTML = this.elementWidth;
+        this.outHeight.innerHTML = this.elementHeight;
     }
 
     touchEndSize = (event) => {
@@ -178,10 +180,12 @@ class Selection {
         this.Dist *= -1;
         this.degreeAngle = this.Dist * (180 / Math.PI);
         this.val = this.degreeAngle + this.Nex;
-        this.element.style.transform = `rotate(${this.val}deg)`;
-
-        // scaleX(${this.elementWidth / this.startElementWidth})
-        // scaleY(${this.elementHeight / this.startElementHeight})
+        // this.element.style.transform = `rotate(${this.val}deg)`;
+        this.element.style.transform = `
+            scaleX(${this.scale.x})
+            scaleY(${this.scale.y})
+            rotate(${this.val}deg)
+            `;
 
         this.selection.style.transform = `rotate(${this.val}deg)`;
 
@@ -197,10 +201,6 @@ class Selection {
     // **********************************************************************************
     resetAll = () => {
         console.log(`reset`);
-        // this.element.style.transform = `scaleX(${1}) scaleY(${1}) rotate(0)`;
-        // this.selection.style.width = `${this.elementWidth}px`;
-        // this.selection.style.height = `${this.startScaleHeight}px`;
-        // this.selection.style.transform = `rotate(${this.startElementRotate}deg)`;
     }
 
     remove = () => {
@@ -230,7 +230,7 @@ class Selection {
 
 // =================================================
 const group = document.querySelector('.group');
-// console.log(group.getBBox());
+console.log(group.getBBox());
 // eslint-disable-next-line no-unused-vars
 const selection = new Selection(group);
 
