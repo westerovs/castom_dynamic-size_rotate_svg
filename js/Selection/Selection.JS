@@ -5,14 +5,8 @@ class Selection {
         this.element = element;
         this.elementWidth = this.element.getBoundingClientRect().right - this.element.getBoundingClientRect().left;
         this.elementHeight = this.element.getBoundingClientRect().bottom - this.element.getBoundingClientRect().top;
-        this.startElementWidth = this.elementWidth;
-        this.startElementHeight = this.elementHeight;
         this.elementTop = this.element.getBoundingClientRect().top;
         this.elementLeft = this.element.getBoundingClientRect().left;
-        // this.element.style.transform = 'rotate(0deg)'; // !!! warning !!!
-
-        this.element.style.transform = 'skewY(3deg)'; // !!! warning !!!
-        console.log(getComputedStyle(this.element).transform);
 
         this.scaleOffsetX = this.element.getBBox().x;
         this.scaleOffsetY = this.element.getBBox().y;
@@ -26,10 +20,18 @@ class Selection {
         this.outRotate = document.querySelector('.selection__out-text-rotate');
         this.reset = document.querySelector('.selection__out--reset');
 
+
+        this.resetElementHeight = 0;
+        this.startElementWidth = 0;
+        this.startElementHeight = 0;
         this.startTouches = 0;
         this.startScaleWidth = 0;
         this.startScaleHeight = 0;
-        // this.startRotate = 0;
+        this.startRotate = 0;
+        // this.scale = {
+        //     x: 0,
+        //     y: 0
+        // };
 
         // размеры рамки при выборе элемента
         this.selection.style.top = `${this.elementTop}px`;
@@ -62,11 +64,6 @@ class Selection {
         //     item.addEventListener('touchmove', this.touchMoveRotate);
         //     item.addEventListener('touchend', this.touchEndRotate);
         // });
-
-        this.scale = {
-            x: 0,
-            y: 0
-        };
     } // end constructor
 
     // =======================================================
@@ -78,13 +75,11 @@ class Selection {
 
         this.startTouches = event.targetTouches[0];
 
-        this.scale = {
-            x: this.startElementWidth,
-            y: this.startElementHeight
-        };
+        this.startElementWidth = this.elementWidth;
+        this.startElementHeight = this.elementHeight;
 
         // out
-        // this.outWidth.innerHTML = this.elementWidth;
+        // this.outWidth.innerHTML = this.startElementWidth;
         // this.outHeight.innerHTML = this.elementHeight;
         // this.outRotate.innerHTML = this.val;
 
@@ -94,26 +89,27 @@ class Selection {
     touchMoveSize = (event) => {
         event.stopPropagation();
         event.preventDefault();
-
+        // offset
         this.element.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
         this.selection.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
 
         const moveTouches = event.targetTouches[0];
         const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
-        // const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
+        const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
 
-        // width & height
+        this.elementWidth = (this.startElementWidth + differenceStartMoveX);
+        this.elementHeight = (this.startElementHeight + differenceStartMoveY);
 
-        this.element.style.transform = `scaleX(${(this.scale.x + differenceStartMoveX) / this.startElementWidth})`;
+        this.element.style.transform = `
+            scaleX(${this.elementWidth / this.startElementWidth})
+            scaleY(${this.elementHeight / this.startElementHeight})`;
 
-        console.warn(this.scale.x);
-        console.log(`startElementWidth: `, this.startElementWidth);
-        console.log(`startElementHeight: `, this.startElementHeight);
-        console.log(`---------------------------------------------`);
+        this.selection.style.width = `${this.elementWidth}px`;
+        this.selection.style.height = `${this.elementHeight}px`;
 
         // out
-        this.outWidth.innerHTML = this.scale.x + differenceStartMoveX;
-        // this.outHeight.innerHTML = this.elementHeight;
+        this.outWidth.innerHTML = this.elementWidth + differenceStartMoveX;
+        this.outHeight.innerHTML = this.elementHeight + differenceStartMoveY;
     }
 
     touchEndSize = (event) => {
@@ -183,10 +179,10 @@ class Selection {
 
     resetAll = () => {
         console.log(`reset`);
-        // this.element.style.transform = `scaleX(${1}) scaleY(${1})`;
-        // this.selection.style.width = `${this.startScaleWidth}px`;
+        // this.element.style.transform = `scaleX(${1}) scaleY(${1}) rotate(0)`;
+        // this.selection.style.width = `${this.elementWidth}px`;
         // this.selection.style.height = `${this.startScaleHeight}px`;
-        // // this.selection.style.transform = `rotate(${this.startElementRotate}deg)`;
+        // this.selection.style.transform = `rotate(${this.startElementRotate}deg)`;
     }
 
     remove = () => {
