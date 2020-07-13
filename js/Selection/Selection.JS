@@ -1,56 +1,59 @@
 /* eslint-disable no-param-reassign */
 class Selection {
     constructor(element) {
-        // ===== elem
+        // ===== element
         this.element = element;
         this.elementWidth = this.element.getBoundingClientRect().right - this.element.getBoundingClientRect().left;
         this.elementHeight = this.element.getBoundingClientRect().bottom - this.element.getBoundingClientRect().top;
         this.elementTop = this.element.getBoundingClientRect().top;
         this.elementLeft = this.element.getBoundingClientRect().left;
+        this.elementTranslateOffsetX = this.element.getBBox().x;
+        this.elementTranslateOffsetY = this.element.getBBox().y;
+        this.startRotate = 0; // ! warning !
 
-        this.scaleOffsetX = this.element.getBBox().x;
-        this.scaleOffsetY = this.element.getBBox().y;
-
-        // ===== selection wrap
+        // ===== selection
         this.selection = document.querySelector('.selection');
         this.selectionBtnSize = document.querySelectorAll('.selection__size');
         this.selectionBtnRotate = document.querySelectorAll('.selection__rotate');
+
+        // ===== reset
+        this.reset = document.querySelector('.selection__out--reset');
+        this.reset.addEventListener('touchstart', this.resetAll);
+        this.resetElementWidth = this.elementWidth;
+        this.resetElementHeight = this.elementHeight;
+        this.resetElementRotate = this.startRotate;
+        this.resetSelectionWidth = this.resetElementWidth;
+        this.resetSelectionHeight = this.resetElementHeight;
+        this.resetSelectionRotate = this.resetElementRotate;
+
+        // ===== размеры рамки при выборе элемента
+        this.selection.style.top = `${this.elementTop}px`;
+        this.selection.style.left = `${this.elementLeft}px`;
+        this.selection.style.width = `${this.resetElementWidth}px`;
+        this.selection.style.height = `${this.resetElementHeight}px`;
+
+        // ===== row out
         this.outWidth = document.querySelector('.selection__out-text-width');
         this.outHeight = document.querySelector('.selection__out-text-height');
         this.outRotate = document.querySelector('.selection__out-text-rotate');
-        this.reset = document.querySelector('.selection__out--reset');
-
-
-        this.resetElementHeight = 0;
-        this.startElementWidth = 0;
-        this.startElementHeight = 0;
-        this.startTouches = 0;
-        this.startScaleWidth = 0;
-        this.startScaleHeight = 0;
-        this.startRotate = 0;
-        // this.scale = {
-        //     x: 0,
-        //     y: 0
-        // };
-
-        // размеры рамки при выборе элемента
-        this.selection.style.top = `${this.elementTop}px`;
-        this.selection.style.left = `${this.elementLeft}px`;
-        this.selection.style.width = `${this.elementWidth}px`;
-        this.selection.style.height = `${this.elementHeight}px`;
-        // row out
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
-        // this.outRotate.innerHTML = this.elementHeight;
-        this.reset.addEventListener('touchstart', this.resetAll);
+        this.outRotate.innerHTML = this.startRotate;
 
-        // angle rotate on move
+        // ===== for atan function
+        this.startTouches = 0;
         this.Nex = 0;
         this.degree_angle = 0;
         this.val = 0;
         this.startMouse = 0;
         this.Dist = 0;
-        this.element.style.transform = `rotate(${0}deg)`; // !!! 0
+        this.element.style.transform = `rotate(${this.startRotate}deg)`;
+
+        // ===== progress
+        this.progressDeg = 0;
+        this.progressDegStart = 0;
+        this.progressW = 0;
+        this.progressH = 0;
 
         // change size
         this.selectionBtnSize.forEach(item => {
@@ -66,6 +69,7 @@ class Selection {
             item.addEventListener('touchend', this.touchEndRotate);
         });
     } // end constructor
+
 
     // =======================================================
     //                          SIZE
@@ -90,9 +94,11 @@ class Selection {
     touchMoveSize = (event) => {
         event.stopPropagation();
         event.preventDefault();
+        this.progressW = this.elementWidth;
+        this.progressH = this.elementHeight;
+
         // offset
-        this.element.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
-        this.selection.style.transformOrigin = `${this.scaleOffsetX}px ${this.scaleOffsetY}px`;
+        this.element.style.transformOrigin = `${this.elementTranslateOffsetX}px ${this.elementTranslateOffsetY}px`;
 
         const moveTouches = event.targetTouches[0];
         const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
@@ -124,6 +130,7 @@ class Selection {
         event.stopPropagation();
         event.preventDefault();
 
+        this.progressDegStart = this.progressDeg;
         this.Nex = this.element.style.transform; // this.Nex  -  текущий градус поворода при touchstart
         this.Nex = parseFloat(this.Nex.slice(7));
 
@@ -142,7 +149,6 @@ class Selection {
         event.preventDefault();
 
         this.element.style.transformOrigin = `center`;
-        this.selection.style.transformOrigin = `center`;
 
         const mouse = {
             x: event.changedTouches[0].pageX,
@@ -162,13 +168,13 @@ class Selection {
         );
 
         this.Dist *= -1;
-
         this.degree_angle = this.Dist * (180 / Math.PI);
         this.val = this.degree_angle + this.Nex;
         this.element.style.transform = `rotate(${this.val}deg)`;
         this.selection.style.transform = `rotate(${this.val}deg)`;
 
-        // out
+        // progress
+        this.progressDeg = this.val;
         this.outRotate.innerHTML = this.val;
     }
 
@@ -177,7 +183,6 @@ class Selection {
     }
 
     // **********************************************************************************
-
     resetAll = () => {
         console.log(`reset`);
         // this.element.style.transform = `scaleX(${1}) scaleY(${1}) rotate(0)`;
@@ -188,7 +193,6 @@ class Selection {
 
     remove = () => {
         // this.resetAll();
-
         this.selectionBtnSize.forEach(item => {
             item.removeEventListener('touchstart', this.touchStart);
             item.removeEventListener('touchmove', this.touchMove);
@@ -205,7 +209,6 @@ class Selection {
 
         // не полный reset
         // this.selection.style.transform = `rotate(${this.startElementRotate}deg)`;
-
         this.outWidth.innerHTML = this.elementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.startElementRotate;
