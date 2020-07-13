@@ -45,11 +45,12 @@ class Selection {
         this.reset.addEventListener('touchstart', this.resetAll);
 
         // angle rotate on move
-        this.Nex = null;
-        this.degree_angle = null;
+        this.Nex = 0;
+        this.degree_angle = 0;
         this.val = 0;
-        this.startMouse = null;
-        this.Dist = null;
+        this.startMouse = 0;
+        this.Dist = 0;
+        this.element.style.transform = `rotate(${0}deg)`; // !!! 0
 
         // change size
         this.selectionBtnSize.forEach(item => {
@@ -59,11 +60,11 @@ class Selection {
         });
 
         // change rotate
-        // this.selectionBtnRotate.forEach(item => {
-        //     item.addEventListener('touchstart', this.touchStartRotate);
-        //     item.addEventListener('touchmove', this.touchMoveRotate);
-        //     item.addEventListener('touchend', this.touchEndRotate);
-        // });
+        this.selectionBtnRotate.forEach(item => {
+            item.addEventListener('touchstart', this.touchStartRotate);
+            item.addEventListener('touchmove', this.touchMoveRotate);
+            item.addEventListener('touchend', this.touchEndRotate);
+        });
     } // end constructor
 
     // =======================================================
