@@ -170,9 +170,18 @@ class Selection {
         this.transOriginX = this.elementTranslateOffsetX + this.elementCurrentWidth / 2;
         this.transOriginY = this.elementTranslateOffsetY + this.elementCurrentHeight / 2;
 
-        // this.element.style.transformOrigin = `
-        //     ${this.transOriginX}px
-        //     ${this.transOriginY}px`;
+        this.element.style.transformOrigin = `
+            ${this.transOriginX}px
+            ${this.transOriginY}px`;
+
+        this.element.style.transform = `
+            rotate(${this.val}deg)
+            scaleX(${this.scale.x})
+            scaleY(${this.scale.y})
+            translateX(${this.transOriginX}px)
+            translateY(${this.transOriginY}px)
+            `;
+
 
         // out
         this.outRotate.innerHTML = this.startElementRotate;
@@ -208,6 +217,7 @@ class Selection {
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
             `;
+        // translateX(${-this.transOriginX}px)
 
         this.selection.style.transform = `rotate(${this.val}deg)`;
 
