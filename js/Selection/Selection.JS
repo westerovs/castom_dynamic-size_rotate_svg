@@ -88,10 +88,6 @@ class Selection {
         this.startTouches = event.targetTouches[0];
         this.startElementWidth = this.elementCurrentWidth;
         this.startElementHeight = this.elementCurrentHeight;
-
-        // offset
-        this.element.style.transformOrigin = `${this.elementTranslateOffsetX}px ${this.elementTranslateOffsetY}px`;
-        event.target.style.backgroundColor = 'red';
     }
 
     touchMoveSize = (event) => {
@@ -99,7 +95,6 @@ class Selection {
         event.preventDefault();
         this.progressW = this.elementCurrentWidth;
         this.progressH = this.elementCurrentHeight;
-
 
         const moveTouches = event.targetTouches[0];
         const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
@@ -111,6 +106,10 @@ class Selection {
             x: this.elementCurrentWidth / this.elementWidth,
             y: this.elementCurrentHeight / this.elementHeight
         };
+
+        // offset
+        this.element.style.transformOrigin = `${this.elementTranslateOffsetX}px ${this.elementTranslateOffsetY}px`;
+        event.target.style.backgroundColor = 'red';
 
         this.element.style.transform = `
             rotate(${this.val}deg)
@@ -176,8 +175,8 @@ class Selection {
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
-            translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX) / 2)}px)
-            translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY) / 2)}px)
+            translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+            translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)
             `;
 
 
@@ -214,8 +213,8 @@ class Selection {
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
-            translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX) / 2)}px)
-            translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY) / 2)}px)
+            translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+            translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)
             `;
         // translateX(${-this.transOriginX}px)
 
