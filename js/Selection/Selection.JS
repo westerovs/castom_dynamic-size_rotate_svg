@@ -64,11 +64,17 @@ class Selection {
 
 
         // change size
-        this.selectionBtnSize.forEach(item => {
-            item.addEventListener('touchstart', this.touchStartSize);
-            item.addEventListener('touchmove', this.touchMoveSize);
-            item.addEventListener('touchend', this.touchEndSize);
-        });
+        // this.selectionBtnSize.forEach(item => {
+        //     item.addEventListener('touchstart', this.touchStartSize);
+        //     item.addEventListener('touchmove', this.touchMoveSize);
+        //     item.addEventListener('touchend', this.touchEndSize);
+        // });
+        // change size
+        const mainHer = document.querySelector('.main-her');
+        mainHer.addEventListener('touchstart', this.touchStartSize);
+        mainHer.addEventListener('touchmove', this.touchMoveSize);
+        mainHer.addEventListener('touchend', this.touchEndSize);
+
 
         // change rotate
         this.selectionBtnRotate.forEach(item => {
@@ -92,12 +98,11 @@ class Selection {
         event.preventDefault();
 
         this.startTouches = event.targetTouches[0];
-        console.log(this.startTouches.pageX);
-        console.log(this.startTouches.pageY);
-        console.log(`---------------`);
 
         this.startElementWidth = this.elementCurrentWidth;
         this.startElementHeight = this.elementCurrentHeight;
+
+        event.target.style.backgroundColor = 'red';
     }
 
     touchMoveSize = (event) => {
@@ -105,9 +110,6 @@ class Selection {
         event.preventDefault();
 
         const moveTouches = event.targetTouches[0];
-        console.log(moveTouches.pageX);
-        console.log(moveTouches.pageY);
-        console.log(`---------------`);
 
         const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
         const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
