@@ -5,16 +5,13 @@ class Selection {
         this.element = element;
         this.elementWidth = this.element.getBoundingClientRect().right - this.element.getBoundingClientRect().left;
         this.elementHeight = this.element.getBoundingClientRect().bottom - this.element.getBoundingClientRect().top;
-        this.elementNewWidth = this.elementWidth;
-        this.elementNewHeight = this.elementHeight;
+        this.elementCurrentWidth = this.elementWidth;
+        this.elementCurrentHeight = this.elementHeight;
         this.elementTop = this.element.getBoundingClientRect().top;
         this.elementLeft = this.element.getBoundingClientRect().left;
         this.elementTranslateOffsetX = this.element.getBBox().x;
         this.elementTranslateOffsetY = this.element.getBBox().y;
         this.startRotate = 0; // ! warning !
-        this.element.style.opacity = '0.5';
-        // this.element.style.outline = '0';
-
 
         // ===== selection
         this.selection = document.querySelector('.selection');
@@ -89,8 +86,8 @@ class Selection {
         event.preventDefault();
 
         this.startTouches = event.targetTouches[0];
-        this.startElementWidth = this.elementNewWidth;
-        this.startElementHeight = this.elementNewHeight;
+        this.startElementWidth = this.elementCurrentWidth;
+        this.startElementHeight = this.elementCurrentHeight;
 
         event.target.style.backgroundColor = 'red';
     }
@@ -98,10 +95,8 @@ class Selection {
     touchMoveSize = (event) => {
         event.stopPropagation();
         event.preventDefault();
-        this.progressW = this.elementNewWidth;
-        this.progressH = this.elementNewHeight;
-
-        console.log(this.progressW);
+        this.progressW = this.elementCurrentWidth;
+        this.progressH = this.elementCurrentHeight;
 
         // offset
         this.element.style.transformOrigin = `${this.elementTranslateOffsetX}px ${this.elementTranslateOffsetY}px`;
@@ -109,15 +104,13 @@ class Selection {
         const moveTouches = event.targetTouches[0];
         const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
         const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
-        this.elementNewWidth = (this.startElementWidth + differenceStartMoveX);
-        this.elementNewHeight = (this.startElementHeight + differenceStartMoveY);
+        this.elementCurrentWidth = (this.startElementWidth + differenceStartMoveX);
+        this.elementCurrentHeight = (this.startElementHeight + differenceStartMoveY);
 
         this.scale = {
-            x:  this.elementNewWidth / this.elementWidth,
-            y:  this.elementNewHeight / this.elementHeight
+            x: this.elementCurrentWidth / this.elementWidth,
+            y: this.elementCurrentHeight / this.elementHeight
         };
-        console.log(this.startElementWidth, differenceStartMoveX, this.elementWidth)
-        console.log(this.elementWidth , this.startElementWidth)
 
         this.element.style.transform = `
             rotate(${this.val}deg)
@@ -125,13 +118,13 @@ class Selection {
             scaleY(${this.scale.y})
             `;
 
-        this.selection.style.width = `${this.elementNewWidth}px`;
-        this.selection.style.height = `${this.elementNewHeight}px`;
+        this.selection.style.width = `${this.elementCurrentWidth}px`;
+        this.selection.style.height = `${this.elementCurrentHeight}px`;
         this.selection.style.transform = `rotate(${this.val}deg)`;
 
         // out
-        this.outWidth.innerHTML = this.elementWidth;
-        this.outHeight.innerHTML = this.elementHeight;
+        this.outWidth.innerHTML = this.elementCurrentWidth;
+        this.outHeight.innerHTML = this.elementCurrentHeight;
     }
 
     touchEndSize = (event) => {
@@ -147,7 +140,8 @@ class Selection {
 
         this.startTouchVal = this.val;
         this.progressDegStart = this.progressDeg;
-        this.Nex = this.val ? this.val : parseFloat(this.element.style.transform.slice(7)); // парксинг ротейта // this.Nex  -  текущий градус поворода при touchstart
+        // парксинг ротейта // this.Nex  -  текущий градус поворода при touchstart
+        this.Nex = this.val ? this.val : parseFloat(this.element.style.transform.slice(7));
 
         this.startMouse = {
             x: event.changedTouches[0].pageX,
