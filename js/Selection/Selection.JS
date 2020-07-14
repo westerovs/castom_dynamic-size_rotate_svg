@@ -61,8 +61,7 @@ class Selection {
         // ===== progress
         this.progressDeg = 0;
         this.progressDegStart = 0;
-        this.progressW = 0;
-        this.progressH = 0;
+
 
         // change size
         this.selectionBtnSize.forEach(item => {
@@ -93,6 +92,10 @@ class Selection {
         event.preventDefault();
 
         this.startTouches = event.targetTouches[0];
+        console.log(this.startTouches.pageX);
+        console.log(this.startTouches.pageY);
+        console.log(`---------------`);
+
         this.startElementWidth = this.elementCurrentWidth;
         this.startElementHeight = this.elementCurrentHeight;
     }
@@ -100,10 +103,12 @@ class Selection {
     touchMoveSize = (event) => {
         event.stopPropagation();
         event.preventDefault();
-        this.progressW = this.elementCurrentWidth;
-        this.progressH = this.elementCurrentHeight;
 
         const moveTouches = event.targetTouches[0];
+        console.log(moveTouches.pageX);
+        console.log(moveTouches.pageY);
+        console.log(`---------------`);
+
         const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
         const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
         this.elementCurrentWidth = (this.startElementWidth + differenceStartMoveX);
@@ -131,21 +136,24 @@ class Selection {
             `;
 
         // ограничение зеркальности
-        // if (this.progressW <= 0) {
-        //     console.warn('!!!');
-        //     this.element.style.transform = `
-        //     rotate(${this.val}deg)
-        //     scaleX(${0})
-        //     scaleY(${this.scale.y})`;
-        // }
-        // if (this.progressH <= 0) {
-        //     console.warn('!!!');
-        //     this.element.style.transform = `
-        //     rotate(${this.val}deg)
-        //     scaleX(${this.scale.x})
-        //     scaleY(${0})`;
-        //     this.outHeight.innerHTML = `asdffrg`;
-        // }
+        if (this.elementCurrentWidth <= 0) {
+            console.warn('W !!!');
+            this.element.style.transform = `
+                rotate(${this.val}deg)
+                scaleX(${0})
+                scaleY(${this.scale.y})
+                translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+                translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
+        }
+        if (this.elementCurrentHeight <= 0) {
+            console.warn('H !!!');
+            this.element.style.transform = `
+                rotate(${this.val}deg)
+                scaleX(${this.scale.x})
+                scaleY(${0})
+                translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+                translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
+        }
 
         this.selection.style.width = `${this.elementCurrentWidth}px`;
         this.selection.style.height = `${this.elementCurrentHeight}px`;
@@ -169,7 +177,6 @@ class Selection {
         event.preventDefault();
 
         this.startTouchVal = this.val;
-        this.progressDegStart = this.progressDeg;
         // парксинг ротейта // this.Nex  -  текущий градус поворода при touchstart
         this.Nex = this.val ? this.val : parseFloat(this.element.style.transform.slice(7));
 
@@ -236,7 +243,6 @@ class Selection {
         this.selection.style.transform = `rotate(${this.val}deg)`;
 
         // progress
-        this.progressDeg = this.val;
         this.outRotate.innerHTML = this.val;
     }
 
