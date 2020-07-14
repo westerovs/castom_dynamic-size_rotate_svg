@@ -50,6 +50,13 @@ class Selection {
         this.startMouse = 0;
         this.Dist = 0;
         this.element.style.transform = `rotate(${this.startRotate}deg)`;
+        // this.element.style.transform = `
+        //     rotate(${this.startRotate}deg)
+        //     scaleX(${1})
+        //     scaleY(${1})
+        //     translateX(${80}px)
+        //     translateY(${80}px)
+        // `;
 
         // ===== progress
         this.progressDeg = 0;
@@ -116,6 +123,8 @@ class Selection {
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
             `;
+
+        console.log(this.transOriginX);
 
         // if (this.progressW <= 0) {
         //     console.warn('!!!');
