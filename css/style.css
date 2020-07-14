@@ -50,7 +50,8 @@ img {
 }
 
 .svg {
-  background-color: black;
+  border: 10px ridge gray;
+  background-color: rgb(46, 74, 75);
   position: absolute;
   left: 130px;
   top: 50px;

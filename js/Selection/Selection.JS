@@ -115,8 +115,7 @@ class Selection {
         this.element.style.transform = `
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
-            scaleY(${this.scale.y})
-            `;
+            scaleY(${this.scale.y})`;
 
         this.selection.style.width = `${this.elementCurrentWidth}px`;
         this.selection.style.height = `${this.elementCurrentHeight}px`;
@@ -157,7 +156,9 @@ class Selection {
         event.stopPropagation();
         event.preventDefault();
 
-        //this.element.style.transformOrigin = `center`;
+        this.element.style.transformOrigin = `
+            ${this.elementTranslateOffsetX + this.elementCurrentWidth / 2}px
+            ${this.elementTranslateOffsetY + this.elementCurrentHeight / 2}px`;
 
         const mouse = {
             x: event.changedTouches[0].pageX,
@@ -200,6 +201,16 @@ class Selection {
     // **********************************************************************************
     resetAll = () => {
         console.log(`reset`);
+        // this.element.style.transform = `
+        //     rotate(${0}deg)
+        //     scaleX(${1})
+        //     scaleY(${1})`;
+        // this.elementCurrentWidth = this.elementWidth;
+        // this.elementCurrentHeight = this.elementHeight;
+
+        // this.selection.style.transform = `rotate(${0}deg)`;
+        // this.selection.style.width = `${this.resetElementWidth}px`;
+        // this.selection.style.height = `${this.resetElementHeight}px`;
     }
 
     remove = () => {
