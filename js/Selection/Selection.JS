@@ -89,6 +89,8 @@ class Selection {
         this.startElementWidth = this.elementCurrentWidth;
         this.startElementHeight = this.elementCurrentHeight;
 
+        // offset
+        this.element.style.transformOrigin = `${this.elementTranslateOffsetX}px ${this.elementTranslateOffsetY}px`;
         event.target.style.backgroundColor = 'red';
     }
 
@@ -98,10 +100,6 @@ class Selection {
         this.progressW = this.elementCurrentWidth;
         this.progressH = this.elementCurrentHeight;
 
-
-
-        // offset
-        this.element.style.transformOrigin = `${this.elementTranslateOffsetX}px ${this.elementTranslateOffsetY}px`;
 
         const moveTouches = event.targetTouches[0];
         const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
@@ -117,23 +115,26 @@ class Selection {
         this.element.style.transform = `
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
-            scaleY(${this.scale.y})`;
+            scaleY(${this.scale.y})
+            `;
+        // translateX(${-this.elementTranslateOffsetX}px)
+        // translateY(${-this.elementTranslateOffsetY}px)
 
-        if (this.progressW <= 0) {
-            console.warn('!!!');
-            this.element.style.transform = `
-            rotate(${this.val}deg)
-            scaleX(${0})
-            scaleY(${this.scale.y})`;
-        }
-        if (this.progressH <= 0) {
-            console.warn('!!!');
-            this.element.style.transform = `
-            rotate(${this.val}deg)
-            scaleX(${this.scale.x})
-            scaleY(${0})`;
-            this.outHeight.innerHTML = `asdffrg`;
-        }
+        // if (this.progressW <= 0) {
+        //     console.warn('!!!');
+        //     this.element.style.transform = `
+        //     rotate(${this.val}deg)
+        //     scaleX(${0})
+        //     scaleY(${this.scale.y})`;
+        // }
+        // if (this.progressH <= 0) {
+        //     console.warn('!!!');
+        //     this.element.style.transform = `
+        //     rotate(${this.val}deg)
+        //     scaleX(${this.scale.x})
+        //     scaleY(${0})`;
+        //     this.outHeight.innerHTML = `asdffrg`;
+        // }
 
         this.selection.style.width = `${this.elementCurrentWidth}px`;
         this.selection.style.height = `${this.elementCurrentHeight}px`;
@@ -165,6 +166,14 @@ class Selection {
             y: event.changedTouches[0].pageY
         };
 
+        // ------ transformOrigin ---------------------------
+        this.transOriginX = this.elementTranslateOffsetX + this.elementCurrentWidth / 2;
+        this.transOriginY = this.elementTranslateOffsetY + this.elementCurrentHeight / 2;
+
+        // this.element.style.transformOrigin = `
+        //     ${this.transOriginX}px
+        //     ${this.transOriginY}px`;
+
         // out
         this.outRotate.innerHTML = this.startElementRotate;
         event.target.style.backgroundColor = 'red';
@@ -173,10 +182,6 @@ class Selection {
     touchMoveRotate = (event) => {
         event.stopPropagation();
         event.preventDefault();
-
-        this.element.style.transformOrigin = `
-            ${this.elementTranslateOffsetX + this.elementCurrentWidth / 2}px
-            ${this.elementTranslateOffsetY + this.elementCurrentHeight / 2}px`;
 
         const mouse = {
             x: event.changedTouches[0].pageX,
@@ -198,7 +203,6 @@ class Selection {
         this.Dist *= -1;
         this.degreeAngle = this.Dist * (180 / Math.PI);
         this.val = this.degreeAngle + this.Nex;
-        // this.element.style.transform = `rotate(${this.val}deg)`;
         this.element.style.transform = `
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
