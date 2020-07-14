@@ -10,7 +10,7 @@ html,
 body {
   height: 100%;
   font-family: Geometria;
-  background-color: #333333;
+  background-color: #3a3737;
   color: #ccc;
   user-select: none;
   overflow: hidden;
@@ -58,6 +58,7 @@ img {
 
 .group {
   outline: 1px dashed gold;
+
 }
 
 
