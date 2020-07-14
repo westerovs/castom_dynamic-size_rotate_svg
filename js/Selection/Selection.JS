@@ -114,18 +114,23 @@ class Selection {
             y: this.elementCurrentHeight / this.elementHeight
         };
 
-        // offset
-        this.element.style.transformOrigin = `${this.elementTranslateOffsetX}px ${this.elementTranslateOffsetY}px`;
-        event.target.style.backgroundColor = 'red';
+        // ------ transformOrigin ---------------------------
+        this.transOriginX = this.elementTranslateOffsetX + this.elementCurrentWidth / 2;
+        this.transOriginY = this.elementTranslateOffsetY + this.elementCurrentHeight / 2;
+
+        this.element.style.transformOrigin = `
+            ${this.transOriginX}px
+            ${this.transOriginY}px`;
 
         this.element.style.transform = `
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
+            translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+            translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)
             `;
 
-        console.log(this.transOriginX);
-
+        // ограничение зеркальности
         // if (this.progressW <= 0) {
         //     console.warn('!!!');
         //     this.element.style.transform = `
@@ -149,6 +154,7 @@ class Selection {
         // out
         this.outWidth.innerHTML = this.elementCurrentWidth;
         this.outHeight.innerHTML = this.elementCurrentHeight;
+        event.target.style.backgroundColor = 'red';
     }
 
     touchEndSize = (event) => {
