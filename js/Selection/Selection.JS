@@ -5,6 +5,8 @@ class Selection {
         this.element = element;
         this.elementWidth = this.element.getBoundingClientRect().right - this.element.getBoundingClientRect().left;
         this.elementHeight = this.element.getBoundingClientRect().bottom - this.element.getBoundingClientRect().top;
+        this.elementNewWidth = this.elementWidth;
+        this.elementNewHeight = this.elementHeight;
         this.elementTop = this.element.getBoundingClientRect().top;
         this.elementLeft = this.element.getBoundingClientRect().left;
         this.elementTranslateOffsetX = this.element.getBBox().x;
@@ -87,8 +89,8 @@ class Selection {
         event.preventDefault();
 
         this.startTouches = event.targetTouches[0];
-        this.startElementWidth = this.elementWidth;
-        this.startElementHeight = this.elementHeight;
+        this.startElementWidth = this.elementNewWidth;
+        this.startElementHeight = this.elementNewHeight;
 
         event.target.style.backgroundColor = 'red';
     }
@@ -96,8 +98,10 @@ class Selection {
     touchMoveSize = (event) => {
         event.stopPropagation();
         event.preventDefault();
-        this.progressW = this.elementWidth;
-        this.progressH = this.elementHeight;
+        this.progressW = this.elementNewWidth;
+        this.progressH = this.elementNewHeight;
+
+        console.log(this.progressW);
 
         // offset
         this.element.style.transformOrigin = `${this.elementTranslateOffsetX}px ${this.elementTranslateOffsetY}px`;
@@ -105,23 +109,24 @@ class Selection {
         const moveTouches = event.targetTouches[0];
         const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
         const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
-
-        this.elementWidth = (this.startElementWidth + differenceStartMoveX);
-        this.elementHeight = (this.startElementHeight + differenceStartMoveY);
+        this.elementNewWidth = (this.startElementWidth + differenceStartMoveX);
+        this.elementNewHeight = (this.startElementHeight + differenceStartMoveY);
 
         this.scale = {
-            x: this.elementWidth / this.startElementWidth,
-            y: this.elementHeight / this.startElementHeight
+            x:  this.elementNewWidth / this.elementWidth,
+            y:  this.elementNewHeight / this.elementHeight
         };
+        console.log(this.startElementWidth, differenceStartMoveX, this.elementWidth)
+        console.log(this.elementWidth , this.startElementWidth)
 
         this.element.style.transform = `
+            rotate(${this.val}deg)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
-            rotate(${this.val}deg)
             `;
 
-        this.selection.style.width = `${this.elementWidth}px`;
-        this.selection.style.height = `${this.elementHeight}px`;
+        this.selection.style.width = `${this.elementNewWidth}px`;
+        this.selection.style.height = `${this.elementNewHeight}px`;
         this.selection.style.transform = `rotate(${this.val}deg)`;
 
         // out
@@ -140,9 +145,9 @@ class Selection {
         event.stopPropagation();
         event.preventDefault();
 
+        this.startTouchVal = this.val;
         this.progressDegStart = this.progressDeg;
-        this.Nex = this.element.style.transform; // this.Nex  -  текущий градус поворода при touchstart
-        this.Nex = parseFloat(this.Nex.slice(7));
+        this.Nex = this.val ? this.val : parseFloat(this.element.style.transform.slice(7)); // парксинг ротейта // this.Nex  -  текущий градус поворода при touchstart
 
         this.startMouse = {
             x: event.changedTouches[0].pageX,
@@ -158,7 +163,7 @@ class Selection {
         event.stopPropagation();
         event.preventDefault();
 
-        this.element.style.transformOrigin = `center`;
+        //this.element.style.transformOrigin = `center`;
 
         const mouse = {
             x: event.changedTouches[0].pageX,
@@ -182,9 +187,9 @@ class Selection {
         this.val = this.degreeAngle + this.Nex;
         // this.element.style.transform = `rotate(${this.val}deg)`;
         this.element.style.transform = `
+            rotate(${this.val}deg)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
-            rotate(${this.val}deg)
             `;
 
         this.selection.style.transform = `rotate(${this.val}deg)`;
