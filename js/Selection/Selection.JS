@@ -117,8 +117,6 @@ class Selection {
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
             `;
-        // translateX(${-this.elementTranslateOffsetX}px)
-        // translateY(${-this.elementTranslateOffsetY}px)
 
         // if (this.progressW <= 0) {
         //     console.warn('!!!');
@@ -178,8 +176,8 @@ class Selection {
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
-            translateX(${this.transOriginX}px)
-            translateY(${this.transOriginY}px)
+            translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX) / 2)}px)
+            translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY) / 2)}px)
             `;
 
 
@@ -216,6 +214,8 @@ class Selection {
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
+            translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX) / 2)}px)
+            translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY) / 2)}px)
             `;
         // translateX(${-this.transOriginX}px)
 
