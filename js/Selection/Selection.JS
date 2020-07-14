@@ -98,6 +98,8 @@ class Selection {
         this.progressW = this.elementCurrentWidth;
         this.progressH = this.elementCurrentHeight;
 
+
+
         // offset
         this.element.style.transformOrigin = `${this.elementTranslateOffsetX}px ${this.elementTranslateOffsetY}px`;
 
@@ -116,6 +118,22 @@ class Selection {
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})`;
+
+        if (this.progressW <= 0) {
+            console.warn('!!!');
+            this.element.style.transform = `
+            rotate(${this.val}deg)
+            scaleX(${0})
+            scaleY(${this.scale.y})`;
+        }
+        if (this.progressH <= 0) {
+            console.warn('!!!');
+            this.element.style.transform = `
+            rotate(${this.val}deg)
+            scaleX(${this.scale.x})
+            scaleY(${0})`;
+            this.outHeight.innerHTML = `asdffrg`;
+        }
 
         this.selection.style.width = `${this.elementCurrentWidth}px`;
         this.selection.style.height = `${this.elementCurrentHeight}px`;
