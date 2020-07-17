@@ -35,6 +35,8 @@ class Selection {
         this.selection.style.height = `${this.resetElementHeight}px`;
 
         // ===== row out
+
+        document.querySelector('body').append(document.querySelector('.selection__out-row'));
         this.outWidth = document.querySelector('.selection__out-text-width');
         this.outHeight = document.querySelector('.selection__out-text-height');
         this.outRotate = document.querySelector('.selection__out-text-rotate');
