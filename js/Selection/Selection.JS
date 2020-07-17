@@ -114,16 +114,16 @@ class Selection {
 
         const click = {
             pageX: moveTouches.pageX - this.elementTranslateOffsetX + this.elementCurrentWidth / 2,
-            pageY: moveTouches.pageY - this.elementTranslateOffsetY + this.elementCurrentHeight / 2,
+            // pageY: moveTouches.pageY - this.elementTranslateOffsetY + this.elementCurrentHeight / 2,
         };
 
         moveTouches = click;
 
         const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
-        const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
+        // const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
 
         this.elementCurrentWidth = this.onStartElementWidth + differenceStartMoveX;
-        this.elementCurrentHeight = this.onStartElementHeight + differenceStartMoveY;
+        // this.elementCurrentHeight = this.onStartElementHeight + differenceStartMoveY;
 
         this.scale = {
             x: this.elementCurrentWidth / this.staticInitElementWidth,
@@ -144,28 +144,28 @@ class Selection {
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
             translateX(${this.transOriginX - ((this.staticInitElementWidth + (this.elementTranslateOffsetX * 2)) / 2)}px)
-            translateY(${this.transOriginY - ((this.elementHeight + (this.elementTranslateOffsetY * 2)) / 2)}px)
-        `;
+            `;
+        // translateY(${this.transOriginY - ((this.elementHeight + (this.elementTranslateOffsetY * 2)) / 2)}px)
 
         // ограничение зеркальности
-        if (this.elementCurrentWidth <= 0) {
-            console.warn('W !!!');
-            this.element.style.transform = `
-                rotate(${this.val}deg)
-                scaleX(${0})
-                scaleY(${this.scale.y})
-                translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
-                translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
-        }
-        if (this.elementCurrentHeight <= 0) {
-            console.warn('H !!!');
-            this.element.style.transform = `
-                rotate(${this.val}deg)
-                scaleX(${this.scale.x})
-                scaleY(${0})
-                translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
-                translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
-        }
+        // if (this.elementCurrentWidth <= 0) {
+        //     console.warn('W !!!');
+        //     this.element.style.transform = `
+        //         rotate(${this.val}deg)
+        //         scaleX(${0})
+        //         scaleY(${this.scale.y})
+        //         translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+        //         translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
+        // }
+        // if (this.elementCurrentHeight <= 0) {
+        //     console.warn('H !!!');
+        //     this.element.style.transform = `
+        //         rotate(${this.val}deg)
+        //         scaleX(${this.scale.x})
+        //         scaleY(${0})
+        //         translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+        //         translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
+        // }
 
         this.selection.style.width = `${this.elementCurrentWidth}px`;
         this.selection.style.height = `${this.elementCurrentHeight}px`;
@@ -173,7 +173,7 @@ class Selection {
 
         // out
         this.outWidth.innerHTML = this.elementCurrentWidth;
-        this.outHeight.innerHTML = this.elementCurrentHeight;
+        // this.outHeight.innerHTML = this.elementCurrentHeight;
         event.target.style.backgroundColor = 'red';
     }
 

@@ -2,8 +2,12 @@
 /* ================ selection ================ */
 .selection {
     position: absolute;
-    outline: 1px solid white;
-    /* display: none; */
+    /* outline: 1px solid white; */
+    border-top: 2px solid white;
+    border-right: 2px solid red;
+    border-bottom: 2px solid white;
+    border-left: 2px solid red;
+
     z-index: 999;
   }
   
