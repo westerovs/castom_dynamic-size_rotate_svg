@@ -148,24 +148,24 @@ class Selection {
         `;
 
         // ограничение зеркальности
-        if (this.elementCurrentWidth <= 0) {
-            console.warn('W !!!');
-            this.element.style.transform = `
-                rotate(${this.val}deg)
-                scaleX(${0})
-                scaleY(${this.scale.y})
-                translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
-                translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
-        }
-        if (this.elementCurrentHeight <= 0) {
-            console.warn('H !!!');
-            this.element.style.transform = `
-                rotate(${this.val}deg)
-                scaleX(${this.scale.x})
-                scaleY(${0})
-                translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
-                translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
-        }
+        // if (this.elementCurrentWidth <= 0) {
+        //     console.warn('W !!!');
+        //     this.element.style.transform = `
+        //         rotate(${this.val}deg)
+        //         scaleX(${0})
+        //         scaleY(${this.scale.y})
+        //         translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+        //         translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
+        // }
+        // if (this.elementCurrentHeight <= 0) {
+        //     console.warn('H !!!');
+        //     this.element.style.transform = `
+        //         rotate(${this.val}deg)
+        //         scaleX(${this.scale.x})
+        //         scaleY(${0})
+        //         translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+        //         translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
+        // }
 
         this.selection.style.width = `${this.elementCurrentWidth}px`;
         this.selection.style.height = `${this.elementCurrentHeight}px`;
