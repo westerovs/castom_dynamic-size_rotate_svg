@@ -3,9 +3,9 @@ class Selection {
     constructor(element) {
         // ===== element
         this.element = element;
-        this.elementWidth = this.element.getBoundingClientRect().right - this.element.getBoundingClientRect().left;
+        this.staticInitElementWidth = this.element.getBoundingClientRect().right - this.element.getBoundingClientRect().left;
         this.elementHeight = this.element.getBoundingClientRect().bottom - this.element.getBoundingClientRect().top;
-        this.elementCurrentWidth = this.elementWidth;
+        this.elementCurrentWidth = this.staticInitElementWidth;
         this.elementCurrentHeight = this.elementHeight;
         this.elementTop = this.element.getBoundingClientRect().top;
         this.elementLeft = this.element.getBoundingClientRect().left;
@@ -21,7 +21,7 @@ class Selection {
         // ===== reset
         this.reset = document.querySelector('.selection__out--reset');
         this.reset.addEventListener('touchstart', this.resetAll);
-        this.resetElementWidth = this.elementWidth;
+        this.resetElementWidth = this.staticInitElementWidth;
         this.resetElementHeight = this.elementHeight;
         this.resetElementRotate = this.startRotate;
         this.resetSelectionWidth = this.resetElementWidth;
@@ -38,7 +38,7 @@ class Selection {
         this.outWidth = document.querySelector('.selection__out-text-width');
         this.outHeight = document.querySelector('.selection__out-text-height');
         this.outRotate = document.querySelector('.selection__out-text-rotate');
-        this.outWidth.innerHTML = this.elementWidth;
+        this.outWidth.innerHTML = this.staticInitElementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.startRotate;
 
@@ -50,30 +50,22 @@ class Selection {
         this.startMouse = 0;
         this.Dist = 0;
         this.element.style.transform = `rotate(${this.startRotate}deg)`;
-        // this.element.style.transform = `
-        //     rotate(${this.startRotate}deg)
-        //     scaleX(${1})
-        //     scaleY(${1})
-        //     translateX(${80}px)
-        //     translateY(${80}px)
-        // `;
 
         // ===== progress
         this.progressDeg = 0;
         this.progressDegStart = 0;
 
-
         // change size
-        // this.selectionBtnSize.forEach(item => {
-        //     item.addEventListener('touchstart', this.touchStartSize);
-        //     item.addEventListener('touchmove', this.touchMoveSize);
-        //     item.addEventListener('touchend', this.touchEndSize);
-        // });
+        this.selectionBtnSize.forEach(item => {
+            item.addEventListener('touchstart', this.touchStartSize);
+            item.addEventListener('touchmove', this.touchMoveSize);
+            item.addEventListener('touchend', this.touchEndSize);
+        });
         // change size
-        const mainHer = document.querySelector('.main-her');
-        mainHer.addEventListener('touchstart', this.touchStartSize);
-        mainHer.addEventListener('touchmove', this.touchMoveSize);
-        mainHer.addEventListener('touchend', this.touchEndSize);
+        // const mainHer = document.querySelector('.main-her');
+        // mainHer.addEventListener('touchstart', this.touchStartSize);
+        // mainHer.addEventListener('touchmove', this.touchMoveSize);
+        // mainHer.addEventListener('touchend', this.touchEndSize);
 
 
         // change rotate
@@ -105,8 +97,8 @@ class Selection {
         }
         this.startTouches = center;
 
-        this.startElementWidth = this.elementCurrentWidth;
-        this.startElementHeight = this.elementCurrentHeight;
+        this.onStartElementWidth = this.elementCurrentWidth;
+        this.onStartElementHeight = this.elementCurrentHeight;
 
         event.target.style.backgroundColor = 'red';
     }
@@ -121,21 +113,19 @@ class Selection {
             pageX: moveTouches.pageX - this.elementTranslateOffsetX + this.elementCurrentWidth / 2,
             pageY: moveTouches.pageY - this.elementTranslateOffsetY + this.elementCurrentHeight / 2,
         }
+
         moveTouches = click;
-console.log(click, event.targetTouches[0])
+
         let differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
         let differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
         
-        this.elementCurrentWidth = this.startElementWidth + differenceStartMoveX ;
-        this.elementCurrentHeight = this.startElementHeight + differenceStartMoveY ;
+        this.elementCurrentWidth = this.onStartElementWidth + differenceStartMoveX ;
+        this.elementCurrentHeight = this.onStartElementHeight + differenceStartMoveY ;
         
-
         this.scale = {
-            x: this.elementCurrentWidth  / this.elementWidth,
+            x: this.elementCurrentWidth  / this.staticInitElementWidth,
             y: this.elementCurrentHeight  / this.elementHeight
         };
-        // console.log( Math.cos(-this.val), this.val * Math.PI/180);
-
 
         // ------ transformOrigin ---------------------------
         this.transOriginX = this.elementTranslateOffsetX + this.elementCurrentWidth / 2;
@@ -149,7 +139,7 @@ console.log(click, event.targetTouches[0])
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
-            translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+            translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
             translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)
             `;
         // ограничение зеркальности
@@ -159,7 +149,7 @@ console.log(click, event.targetTouches[0])
         //         rotate(${this.val}deg)
         //         scaleX(${0})
         //         scaleY(${this.scale.y})
-        //         translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+        //         translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
         //         translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
         // }
         // if (this.elementCurrentHeight <= 0) {
@@ -168,7 +158,7 @@ console.log(click, event.targetTouches[0])
         //         rotate(${this.val}deg)
         //         scaleX(${this.scale.x})
         //         scaleY(${0})
-        //         translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+        //         translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
         //         translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
         // }
 
@@ -214,7 +204,7 @@ console.log(click, event.targetTouches[0])
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
-            translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+            translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
             translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)
             `;
 
@@ -234,7 +224,7 @@ console.log(click, event.targetTouches[0])
         };
 
         const center = {
-            x: this.elementLeft + this.elementWidth / 2,
+            x: this.elementLeft + this.staticInitElementWidth / 2,
             y: this.elementTop + this.elementHeight / 2
         };
 
@@ -252,14 +242,13 @@ console.log(click, event.targetTouches[0])
             rotate(${this.val}deg)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
-            translateX(${this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
+            translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
             translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)
             `;
-        // translateX(${-this.transOriginX}px)
 
         this.selection.style.transform = `rotate(${this.val}deg)`;
 
-        // progress
+        // out
         this.outRotate.innerHTML = this.val;
     }
 
@@ -274,7 +263,7 @@ console.log(click, event.targetTouches[0])
         //     rotate(${0}deg)
         //     scaleX(${1})
         //     scaleY(${1})`;
-        // this.elementCurrentWidth = this.elementWidth;
+        // this.elementCurrentWidth = this.staticInitElementWidth;
         // this.elementCurrentHeight = this.elementHeight;
 
         // this.selection.style.transform = `rotate(${0}deg)`;
@@ -300,7 +289,7 @@ console.log(click, event.targetTouches[0])
 
         // не полный reset
         // this.selection.style.transform = `rotate(${this.startElementRotate}deg)`;
-        this.outWidth.innerHTML = this.elementWidth;
+        this.outWidth.innerHTML = this.staticInitElementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.startElementRotate;
     }
