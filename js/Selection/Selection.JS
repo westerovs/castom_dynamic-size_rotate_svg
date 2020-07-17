@@ -91,10 +91,11 @@ class Selection {
 
         this.startTouches = event.targetTouches[0];
 
-        let center = {
+        const center = {
             pageX: this.startTouches.pageX - this.elementTranslateOffsetX + this.elementCurrentWidth / 2,
             pageY: this.startTouches.pageY - this.elementTranslateOffsetY + this.elementCurrentHeight / 2,
-        }
+        };
+
         this.startTouches = center;
 
         this.onStartElementWidth = this.elementCurrentWidth;
@@ -109,22 +110,22 @@ class Selection {
 
         let moveTouches = event.targetTouches[0];
 
-        let click = {
+        const click = {
             pageX: moveTouches.pageX - this.elementTranslateOffsetX + this.elementCurrentWidth / 2,
             pageY: moveTouches.pageY - this.elementTranslateOffsetY + this.elementCurrentHeight / 2,
-        }
+        };
 
         moveTouches = click;
 
-        let differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
-        let differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
-        
-        this.elementCurrentWidth = this.onStartElementWidth + differenceStartMoveX ;
-        this.elementCurrentHeight = this.onStartElementHeight + differenceStartMoveY ;
-        
+        const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
+        const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
+
+        this.elementCurrentWidth = this.onStartElementWidth + differenceStartMoveX;
+        this.elementCurrentHeight = this.onStartElementHeight + differenceStartMoveY;
+
         this.scale = {
-            x: this.elementCurrentWidth  / this.staticInitElementWidth,
-            y: this.elementCurrentHeight  / this.elementHeight
+            x: this.elementCurrentWidth / this.staticInitElementWidth,
+            y: this.elementCurrentHeight / this.elementHeight
         };
 
         // ------ transformOrigin ---------------------------
@@ -142,6 +143,7 @@ class Selection {
             translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
             translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)
             `;
+
         // ограничение зеркальности
         // if (this.elementCurrentWidth <= 0) {
         //     console.warn('W !!!');
