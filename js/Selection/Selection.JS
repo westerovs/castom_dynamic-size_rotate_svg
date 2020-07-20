@@ -4,6 +4,7 @@ class Selection {
         // ===== element
         this.element = element;
         this.staticInitElementWidth = this.element.getBoundingClientRect().right - this.element.getBoundingClientRect().left;
+        this.staticInitElementHeight = this.element.getBoundingClientRect().top - this.element.getBoundingClientRect().bottom;
         this.elementHeight = this.element.getBoundingClientRect().bottom - this.element.getBoundingClientRect().top;
         this.elementCurrentWidth = this.staticInitElementWidth;
         this.elementCurrentHeight = this.elementHeight;
@@ -94,8 +95,8 @@ class Selection {
         this.startTouches = event.targetTouches[0];
 
         const center = {
-            pageX: this.startTouches.pageX - this.elementTranslateOffsetX + this.elementCurrentWidth / 2,
-            pageY: this.startTouches.pageY - this.elementTranslateOffsetY + this.elementCurrentHeight / 2,
+            pageX: this.startTouches.pageX,
+            pageY: this.startTouches.pageY,
         };
 
         this.startTouches = center;
@@ -113,8 +114,8 @@ class Selection {
         let moveTouches = event.targetTouches[0];
 
         const click = {
-            pageX: moveTouches.pageX - this.elementTranslateOffsetX + this.elementCurrentWidth / 2,
-            pageY: moveTouches.pageY - this.elementTranslateOffsetY + this.elementCurrentHeight / 2,
+            pageX: moveTouches.pageX,
+            pageY: moveTouches.pageY,
         };
 
         moveTouches = click;
@@ -127,7 +128,7 @@ class Selection {
 
         this.scale = {
             x: this.elementCurrentWidth / this.staticInitElementWidth,
-            y: this.elementCurrentHeight / this.elementHeight
+            y: this.elementCurrentHeight / this.staticInitElementHeight
         };
 
         // ------ transformOrigin ---------------------------
