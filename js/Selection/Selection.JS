@@ -52,23 +52,23 @@ class Selection {
         this.val = 0;
         this.startMouse = 0;
         this.Dist = 0;
-        this.element.style.transform = `rotate(${this.startRotate}deg)`;
+        this.element.style.transform = `rotate(${this.startRotate}rad)`;
 
         // ===== progress
         this.progressDeg = 0;
         this.progressDegStart = 0;
 
         // change size
-        this.selectionBtnSize.forEach(item => {
-            item.addEventListener('touchstart', this.touchStartSize);
-            item.addEventListener('touchmove', this.touchMoveSize);
-            item.addEventListener('touchend', this.touchEndSize);
-        });
+        // this.selectionBtnSize.forEach(item => {
+        //     item.addEventListener('touchstart', this.touchStartSize);
+        //     item.addEventListener('touchmove', this.touchMoveSize);
+        //     item.addEventListener('touchend', this.touchEndSize);
+        // });
         // change size
-        // const mainHer = document.querySelector('.main-her');
-        // mainHer.addEventListener('touchstart', this.touchStartSize);
-        // mainHer.addEventListener('touchmove', this.touchMoveSize);
-        // mainHer.addEventListener('touchend', this.touchEndSize);
+        const mainHer = document.querySelector('.main-her');
+        mainHer.addEventListener('touchstart', this.touchStartSize);
+        mainHer.addEventListener('touchmove', this.touchMoveSize);
+        mainHer.addEventListener('touchend', this.touchEndSize);
 
 
         // change rotate
@@ -83,6 +83,8 @@ class Selection {
             y: 1
         };
     } // end constructor
+
+    degreesToRadians = (grad) => (grad * Math.PI) / 180;
 
 
     // =======================================================
@@ -141,7 +143,7 @@ class Selection {
 
         // move
         this.element.style.transform = `
-            rotate(${this.val}deg)
+            rotate(${this.degreesToRadians(this.val)}rad)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
             translateX(${this.transOriginX - ((this.staticInitElementWidth + (this.elementTranslateOffsetX * 2)) / 2)}px)
@@ -152,7 +154,7 @@ class Selection {
         // if (this.elementCurrentWidth <= 0) {
         //     console.warn('W !!!');
         //     this.element.style.transform = `
-        //         rotate(${this.val}deg)
+        //         rotate(${this.degreesToRadians(this.val)}rad)
         //         scaleX(${0})
         //         scaleY(${this.scale.y})
         //         translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
@@ -161,7 +163,7 @@ class Selection {
         // if (this.elementCurrentHeight <= 0) {
         //     console.warn('H !!!');
         //     this.element.style.transform = `
-        //         rotate(${this.val}deg)
+        //         rotate(${this.degreesToRadians(this.val)}rad)
         //         scaleX(${this.scale.x})
         //         scaleY(${0})
         //         translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
@@ -170,7 +172,7 @@ class Selection {
 
         this.selection.style.width = `${this.elementCurrentWidth}px`;
         this.selection.style.height = `${this.elementCurrentHeight}px`;
-        this.selection.style.transform = `rotate(${this.val}deg)`;
+        this.selection.style.transform = `rotate(${this.degreesToRadians(this.val)}rad)`;
 
         // out
         this.outWidth.innerHTML = this.elementCurrentWidth;
@@ -190,6 +192,7 @@ class Selection {
         event.preventDefault();
 
         this.startTouchVal = this.val;
+        console.warn(this.startTouchVal);
         // парксинг ротейта // this.Nex  -  текущий градус поворода при touchstart
         this.Nex = this.val ? this.val : parseFloat(this.element.style.transform.slice(7));
 
@@ -207,7 +210,7 @@ class Selection {
             ${this.transOriginY}px`;
 
         this.element.style.transform = `
-            rotate(${this.val}deg)
+            rotate(${this.degreesToRadians(this.val)}rad)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
             translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
@@ -216,7 +219,7 @@ class Selection {
 
 
         // out
-        this.outRotate.innerHTML = this.startElementRotate;
+        this.outRotate.innerHTML = this.startTouchVal;
         event.target.style.backgroundColor = 'red';
     }
 
@@ -245,20 +248,14 @@ class Selection {
         this.degreeAngle = this.Dist * (180 / Math.PI);
         this.val = this.degreeAngle + this.Nex;
         this.element.style.transform = `
-            rotate(${this.val}deg)
+            rotate(${this.degreesToRadians(this.val)}rad)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
             translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
             translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)
-            `;
+        `;
 
-        this.selection.style.transform = `rotate(${this.val}deg)`;
-
-        this.selectionBtnSize.forEach(item => {
-            item.style.transform = `rotate(${-this.val}deg)`;
-            item.style.transform = `rotate(${-this.val}deg)`;
-            item.style.transform = `rotate(${-this.val}deg)`;
-        });
+        this.selection.style.transform = `rotate(${this.degreesToRadians(this.val)}rad)`;
 
         // out
         this.outRotate.innerHTML = this.val;
@@ -272,13 +269,13 @@ class Selection {
     resetAll = () => {
         console.log(`reset`);
         // this.element.style.transform = `
-        //     rotate(${0}deg)
+        //     rotate(${0}rad)
         //     scaleX(${1})
         //     scaleY(${1})`;
         // this.elementCurrentWidth = this.staticInitElementWidth;
         // this.elementCurrentHeight = this.elementHeight;
 
-        // this.selection.style.transform = `rotate(${0}deg)`;
+        // this.selection.style.transform = `rotate(${0}rad)`;
         // this.selection.style.width = `${this.resetElementWidth}px`;
         // this.selection.style.height = `${this.resetElementHeight}px`;
     }
@@ -300,7 +297,7 @@ class Selection {
         this.reset.removeEventListener('touchstart', this.resetAll);
 
         // не полный reset
-        // this.selection.style.transform = `rotate(${this.startElementRotate}deg)`;
+        // this.selection.style.transform = `rotate(${this.startElementRotate}rad)`;
         this.outWidth.innerHTML = this.staticInitElementWidth;
         this.outHeight.innerHTML = this.elementHeight;
         this.outRotate.innerHTML = this.startElementRotate;
