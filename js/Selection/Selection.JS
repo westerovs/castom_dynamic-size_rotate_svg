@@ -4,7 +4,7 @@ class Selection {
         // ===== element
         this.element = element;
         this.staticInitElementWidth = this.element.getBoundingClientRect().right - this.element.getBoundingClientRect().left;
-        this.staticInitElementHeight = this.element.getBoundingClientRect().top - this.element.getBoundingClientRect().bottom;
+        this.staticInitElementHeight = this.element.getBoundingClientRect().bottom - this.element.getBoundingClientRect().top;
         this.elementHeight = this.element.getBoundingClientRect().bottom - this.element.getBoundingClientRect().top;
         this.elementCurrentWidth = this.staticInitElementWidth;
         this.elementCurrentHeight = this.elementHeight;
@@ -84,7 +84,8 @@ class Selection {
         };
     } // end constructor
 
-    degreesToRadians = (grad) => (grad * Math.PI) / 180;
+    // deg to rad
+    degToRad = (grad) => (grad * Math.PI) / 180;
 
 
     // =======================================================
@@ -95,14 +96,6 @@ class Selection {
         event.preventDefault();
 
         this.startTouches = event.targetTouches[0];
-
-        const center = {
-            pageX: this.startTouches.pageX,
-            pageY: this.startTouches.pageY,
-        };
-
-        this.startTouches = center;
-
         this.onStartElementWidth = this.elementCurrentWidth;
         this.onStartElementHeight = this.elementCurrentHeight;
 
@@ -113,15 +106,7 @@ class Selection {
         event.stopPropagation();
         event.preventDefault();
 
-        let moveTouches = event.targetTouches[0];
-
-        const click = {
-            pageX: moveTouches.pageX,
-            pageY: moveTouches.pageY,
-        };
-
-        moveTouches = click;
-
+        const moveTouches = event.targetTouches[0];
         const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
         const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
 
@@ -133,6 +118,8 @@ class Selection {
             y: this.elementCurrentHeight / this.staticInitElementHeight
         };
 
+        console.log(this.scale);
+
         // ------ transformOrigin ---------------------------
         this.transOriginX = this.elementTranslateOffsetX + this.elementCurrentWidth / 2;
         this.transOriginY = this.elementTranslateOffsetY + this.elementCurrentHeight / 2;
@@ -143,36 +130,16 @@ class Selection {
 
         // move
         this.element.style.transform = `
-            rotate(${this.degreesToRadians(this.val)}rad)
+            rotate(${this.degToRad(this.val)}rad)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
             translateX(${this.transOriginX - ((this.staticInitElementWidth + (this.elementTranslateOffsetX * 2)) / 2)}px)
             translateY(${this.transOriginY - ((this.elementHeight + (this.elementTranslateOffsetY * 2)) / 2)}px)
         `;
 
-        // ограничение зеркальности
-        // if (this.elementCurrentWidth <= 0) {
-        //     console.warn('W !!!');
-        //     this.element.style.transform = `
-        //         rotate(${this.degreesToRadians(this.val)}rad)
-        //         scaleX(${0})
-        //         scaleY(${this.scale.y})
-        //         translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
-        //         translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
-        // }
-        // if (this.elementCurrentHeight <= 0) {
-        //     console.warn('H !!!');
-        //     this.element.style.transform = `
-        //         rotate(${this.degreesToRadians(this.val)}rad)
-        //         scaleX(${this.scale.x})
-        //         scaleY(${0})
-        //         translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
-        //         translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)`;
-        // }
-
         this.selection.style.width = `${this.elementCurrentWidth}px`;
         this.selection.style.height = `${this.elementCurrentHeight}px`;
-        this.selection.style.transform = `rotate(${this.degreesToRadians(this.val)}rad)`;
+        this.selection.style.transform = `rotate(${this.degToRad(this.val)}rad)`;
 
         // out
         this.outWidth.innerHTML = this.elementCurrentWidth;
@@ -210,7 +177,7 @@ class Selection {
             ${this.transOriginY}px`;
 
         this.element.style.transform = `
-            rotate(${this.degreesToRadians(this.val)}rad)
+            rotate(${this.degToRad(this.val)}rad)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
             translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
@@ -248,14 +215,14 @@ class Selection {
         this.degreeAngle = this.Dist * (180 / Math.PI);
         this.val = this.degreeAngle + this.Nex;
         this.element.style.transform = `
-            rotate(${this.degreesToRadians(this.val)}rad)
+            rotate(${this.degToRad(this.val)}rad)
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
             translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
             translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)
         `;
 
-        this.selection.style.transform = `rotate(${this.degreesToRadians(this.val)}rad)`;
+        this.selection.style.transform = `rotate(${this.degToRad(this.val)}rad)`;
 
         // out
         this.outRotate.innerHTML = this.val;
