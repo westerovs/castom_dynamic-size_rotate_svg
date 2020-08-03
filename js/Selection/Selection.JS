@@ -65,10 +65,10 @@ class Selection {
         //     item.addEventListener('touchend', this.touchEndSize);
         // });
         // change size
-        const mainHer = document.querySelector('.main-her');
-        mainHer.addEventListener('touchstart', this.touchStartSize);
-        mainHer.addEventListener('touchmove', this.touchMoveSize);
-        mainHer.addEventListener('touchend', this.touchEndSize);
+        this.mainHer = document.querySelector('.main-her');
+        this.mainHer.addEventListener('touchstart', this.touchStartSize);
+        this.mainHer.addEventListener('touchmove', this.touchMoveSize);
+        this.mainHer.addEventListener('touchend', this.touchEndSize);
 
 
         // change rotate
@@ -107,8 +107,19 @@ class Selection {
         event.preventDefault();
 
         const moveTouches = event.targetTouches[0];
-        const differenceStartMoveX = moveTouches.pageX - this.startTouches.pageX;
-        const differenceStartMoveY = moveTouches.pageY - this.startTouches.pageY;
+
+        let diff = {
+            x: (moveTouches.pageX - this.startTouches.pageX),
+            y: (moveTouches.pageY - this.startTouches.pageY),
+        };
+
+        let angle = this.degToRad(this.val);
+
+        const differenceStartMoveX = diff.x * Math.cos(angle) + diff.y * Math.sin(angle);
+        const differenceStartMoveY = diff.y * Math.cos(angle) - diff.x * Math.sin(angle);
+
+        diff.x = differenceStartMoveX;
+        diff.y = differenceStartMoveY;
 
         this.elementCurrentWidth = this.onStartElementWidth + differenceStartMoveX;
         this.elementCurrentHeight = this.onStartElementHeight + differenceStartMoveY;
@@ -118,15 +129,24 @@ class Selection {
             y: this.elementCurrentHeight / this.staticInitElementHeight
         };
 
-        console.log(this.scale);
 
         // ------ transformOrigin ---------------------------
         this.transOriginX = this.elementTranslateOffsetX + this.elementCurrentWidth / 2;
         this.transOriginY = this.elementTranslateOffsetY + this.elementCurrentHeight / 2;
+        // this.transOriginX = this.elementTranslateOffsetX + (this.elementCurrentWidth / 2) * Math.cos(-angle) + (this.elementCurrentHeight / 2) * Math.sin(-angle);
+        // this.transOriginY = this.elementTranslateOffsetY - (this.elementCurrentWidth / 2) * Math.sin(-angle) + (this.elementCurrentHeight / 2) * Math.sin(-angle);
 
         this.element.style.transformOrigin = `
             ${this.transOriginX}px
             ${this.transOriginY}px`;
+
+
+        let trans = {
+            x: this.transOriginX,
+            y: this.transOriginY
+        };
+        // console.log(trans);
+
 
         // move
         this.element.style.transform = `
@@ -134,7 +154,7 @@ class Selection {
             scaleX(${this.scale.x})
             scaleY(${this.scale.y})
             translateX(${this.transOriginX - ((this.staticInitElementWidth + (this.elementTranslateOffsetX * 2)) / 2)}px)
-            translateY(${this.transOriginY - ((this.elementHeight + (this.elementTranslateOffsetY * 2)) / 2)}px)
+            translateY(${this.transOriginY - ((this.staticInitElementHeight + (this.elementTranslateOffsetY * 2)) / 2)}px)
         `;
 
         this.selection.style.width = `${this.elementCurrentWidth}px`;
@@ -159,7 +179,6 @@ class Selection {
         event.preventDefault();
 
         this.startTouchVal = this.val;
-        console.warn(this.startTouchVal);
         // парксинг ротейта // this.Nex  -  текущий градус поворода при touchstart
         this.Nex = this.val ? this.val : parseFloat(this.element.style.transform.slice(7));
 
@@ -183,7 +202,6 @@ class Selection {
             translateX(${this.transOriginX - ((this.staticInitElementWidth + this.elementTranslateOffsetX * 2) / 2)}px)
             translateY(${this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2)}px)
             `;
-
 
         // out
         this.outRotate.innerHTML = this.startTouchVal;

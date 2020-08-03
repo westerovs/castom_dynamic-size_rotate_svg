@@ -2,10 +2,10 @@
 .selection {
   position: absolute;
   /* outline: 1px solid white; */
-  border-top: 2px solid white;
-  border-right: 2px solid red;
-  border-bottom: 2px solid white;
-  border-left: 2px solid red;
+  border-top: 2px solid red;
+  border-right: 2px solid white;
+  border-bottom: 2px solid red;
+  border-left: 2px solid white;
   z-index: 999;
 }
 
