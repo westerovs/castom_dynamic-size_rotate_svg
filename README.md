@@ -1,5 +1,3 @@
-# TEMPLATE
-🟢RUN:<br>
-https://westerovs.github.com
+# Функция таскания svg элементов. В ранней разработке!
 <br>
 <img src="cover.jpg">
