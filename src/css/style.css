@@ -23,7 +23,7 @@ body {
     border: 10px ridge gray;
     background-color: rgb(46, 74, 75);
     position: absolute;
-    left: 130px;
+    left: 150px;
     top: 50px;
 }
 
@@ -121,15 +121,14 @@ body {
 /* ****************** out ****************** */
 .panel {
     outline: 3px groove #ccc;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, 55%);
+    position: fixed;
+    top: 30px;
+    left: 10px;
     padding: 5px;
     display: flex;
     flex-direction: column;
-    min-width: 80px;
-    /* background-color: black; */
+    min-width: 115px;
+     background-color: black;
     color: white;
     z-index: 999;
 }

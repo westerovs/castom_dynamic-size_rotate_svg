@@ -16,31 +16,22 @@ class Capture {
         
         // ===== capture
         this.capture = document.querySelector('.capture')
-        this.captureBtnSize = document.querySelectorAll('.capture__size')
-        this.captureBtnRotate = document.querySelectorAll('.capture__rotate')
+        this.btnsSize = this.capture.querySelectorAll('.capture__size')
+        this.btnsRotate = this.capture.querySelectorAll('.capture__rotate')
         
         // ===== reset
-        this.reset = document.querySelector('.panel__out--reset')
-        this.reset.addEventListener('touchstart', this.resetAll)
+        this.reset = this.capture.querySelector('.panel__out--reset')
         this.resetElementWidth = this.elementWidth
         this.resetElementHeight = this.elementHeight
         this.resetElementRotate = this.startRotate
-        this.resetcaptureWidth = this.resetElementWidth
-        this.resetcaptureHeight = this.resetElementHeight
-        this.resetcaptureRotate = this.resetElementRotate
-        
-        // ===== размеры рамки при выборе элемента
-        this.capture.style.top = `${ this.elementTop }px`
-        this.capture.style.left = `${ this.elementLeft }px`
-        this.capture.style.width = `${ this.resetElementWidth }px`
-        this.capture.style.height = `${ this.resetElementHeight }px`
         
         // ===== row out
-        this.outWidth = document.querySelector('.panel__output-width')
-        this.outHeight = document.querySelector('.panel__output-height')
-        this.outRotate = document.querySelector('.panel__output-rotate')
-        this.outWidth.innerHTML = this.elementWidth
-        this.outHeight.innerHTML = this.elementHeight
+        this.panel     = this.capture.querySelector('.panel')
+        this.outWidth  = this.panel.querySelector('.panel__output-width')
+        this.outHeight = this.panel.querySelector('.panel__output-height')
+        this.outRotate = this.panel.querySelector('.panel__output-rotate')
+        this.outWidth.innerHTML = `${ Math.trunc(this.elementWidth) }px`
+        this.outHeight.innerHTML = `${ Math.trunc(this.elementHeight) }px`
         this.outRotate.innerHTML = this.startRotate
         
         // ===== for atan function
@@ -65,25 +56,19 @@ class Capture {
         this.progressW = 0
         this.progressH = 0
         
-        // change size
-        this.captureBtnSize.forEach(item => {
-            item.addEventListener('touchstart', this.touchStartSize)
-            item.addEventListener('touchmove', this.touchMoveSize)
-            item.addEventListener('touchend', this.touchEndSize)
-        })
-        
-        // change rotate
-        this.captureBtnRotate.forEach(item => {
-            item.addEventListener('touchstart', this.touchStartRotate)
-            item.addEventListener('touchmove', this.touchMoveRotate)
-            item.addEventListener('touchend', this.touchEndRotate)
-        })
-        
         this.scale = {
             x: 1,
             y: 1,
         }
     } // end constructor
+    
+    changeBorderCapture = () => {
+        // ===== размеры рамки при выборе элемента
+        this.capture.style.top    = `${ this.elementTop }px`
+        this.capture.style.left   = `${ this.elementLeft }px`
+        this.capture.style.width  = `${ this.resetElementWidth }px`
+        this.capture.style.height = `${ this.resetElementHeight }px`
+    }
     
     // =======================================================
     //                          SIZE
@@ -150,10 +135,10 @@ class Capture {
         this.capture.style.width = `${ this.elementCurrentWidth }px`
         this.capture.style.height = `${ this.elementCurrentHeight }px`
         this.capture.style.transform = `rotate(${ this.val }deg)`
-        
+    
         // out
-        this.outWidth.innerHTML = this.elementCurrentWidth
-        this.outHeight.innerHTML = this.elementCurrentHeight
+        this.outWidth.innerHTML  = `${ Math.trunc(this.elementCurrentWidth) }px`
+        this.outHeight.innerHTML = `${ Math.trunc(this.elementCurrentHeight) }px`
         event.target.style.backgroundColor = 'red'
     }
     
@@ -230,13 +215,13 @@ class Capture {
             translateX(${ this.transOriginX - ((this.elementWidth + this.elementTranslateOffsetX * 2) / 2) }px)
             translateY(${ this.transOriginY - ((this.elementHeight + this.elementTranslateOffsetY * 2) / 2) }px)
             `
-        // translateX(${-this.transOriginX}px)
+        
         
         this.capture.style.transform = `rotate(${ this.val }deg)`
         
         // progress
         this.progressDeg = this.val
-        this.outRotate.innerHTML = this.val
+        this.outRotate.innerHTML = `${ Math.trunc(this.val) }deg`
     }
     
     touchEndRotate = (event) => {
@@ -246,27 +231,27 @@ class Capture {
     // **********************************************************************************
     resetAll = () => {
         console.log(`reset`)
-        // this.element.style.transform = `
-        //     rotate(${0}deg)
-        //     scaleX(${1})
-        //     scaleY(${1})`;
-        // this.elementCurrentWidth = this.elementWidth;
-        // this.elementCurrentHeight = this.elementHeight;
+        this.element.style.transform = `
+            rotate(${0}deg)
+            scaleX(${1})
+            scaleY(${1})`;
+        this.elementCurrentWidth = this.elementWidth;
+        this.elementCurrentHeight = this.elementHeight;
         
-        // this.capture.style.transform = `rotate(${0}deg)`;
-        // this.capture.style.width = `${this.resetElementWidth}px`;
-        // this.capture.style.height = `${this.resetElementHeight}px`;
+        this.capture.style.transform = `rotate(${0}deg)`;
+        this.capture.style.width = `${this.resetElementWidth}px`;
+        this.capture.style.height = `${this.resetElementHeight}px`;
     }
     
     remove = () => {
         // this.resetAll();
-        this.captureBtnSize.forEach(item => {
+        this.btnsSize.forEach(item => {
             item.removeEventListener('touchstart', this.touchStart)
             item.removeEventListener('touchmove', this.touchMove)
             item.removeEventListener('touchend', this.touchEnd)
         })
         
-        this.captureBtnRotate.forEach(item => {
+        this.btnsRotate.forEach(item => {
             item.removeEventListener('touchstart', this.touchStartRotate)
             item.removeEventListener('touchmove', this.touchMoveRotate)
             item.removeEventListener('touchend', this.touchEndRotate)
@@ -282,9 +267,27 @@ class Capture {
     }
     
     init = () => {
+        document.body.append(this.panel)
     
+        this.changeBorderCapture()
+        
+        this.reset.addEventListener('touchstart', this.resetAll)
+    
+        // change size
+        this.btnsSize.forEach(item => {
+            item.addEventListener('touchstart', this.touchStartSize)
+            item.addEventListener('touchmove', this.touchMoveSize)
+            item.addEventListener('touchend', this.touchEndSize)
+        })
+    
+        // change rotate
+        this.btnsRotate.forEach(item => {
+            item.addEventListener('touchstart', this.touchStartRotate)
+            item.addEventListener('touchmove', this.touchMoveRotate)
+            item.addEventListener('touchend', this.touchEndRotate)
+        })
     }
-} // end capture
+}
 
 // =================================================
 const group = document.querySelector('.group')
@@ -292,4 +295,5 @@ console.log(group.getBBox())
 
 // eslint-disable-next-line no-unused-vars
 const capture = new Capture(group)
+capture.init()
 
