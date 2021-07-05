@@ -1,60 +1,27 @@
 {
-    "root": true,
-    "parser": "babel-eslint",
+    "extends": ["airbnb/base"],
+    "parser" : "babel-eslint",
     "env": {
         "browser": true,
-        "es6": true,
-        "node": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "airbnb"
-    ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
+        "node": true,
+        "commonjs": true,
+        "jest": true,
+        "es6": true
     },
     "rules": {
-        // 0 - off, 1 - warn, 2 - error
-        "no-await-in-loop": "error",
-        // "no-console": "error",
-        "no-console": "off",
-        "comma-dangle": "off",
-        "indent": [
-            "error",
-            4
-        ],
-        "quotes": [
-            "warn",
-            "single",
-            {
-                "allowTemplateLiterals": true
-            }
-        ],
-        "react/prop-types": 0,
-        "react/jsx-indent": 0,
-        "react/jsx-indent-props": [
-            2,
-            4
-        ],
-        "jsx-a11y/click-events-have-key-events": 0,
-        "jsx-a11y/no-noninteractive-element-interactions": 0,
-        "jsx-a11y/media-has-caption": 0,
-        "import/no-extraneous-dependencies": 0,
+        "comma-dangle": ["error", "always-multiline"],
+        "semi": ["error", "never"],
+        "arrow-parens": ["error", "as-needed"],
+        "object-curly-spacing": ["error", "always"],
+        "array-bracket-spacing": ["error", "never"],
+        "quotes": ["error", "single"],
+        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+        "eol-last": ["error", "always"],
+        "indent": [2, 4],
+        "template-curly-spacing": ["error", "always"],
+        "no-multi-spaces": "off",
         "no-plusplus": "off",
-        "default-case": "off",
         "linebreak-style": "off",
-        "no-multiple-empty-lines": [
-            "error", { "max": 2, "maxEOF": 0
-        }],
-        "max-len": "off",
-        "arrow-parens": "off",
-        "prefer-destructuring": "off",
-        "operator-linebreak": "off",
-        "eol-last": "off"
+        "no-console": "off"
     }
 }

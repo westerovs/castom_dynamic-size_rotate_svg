@@ -1,45 +1,77 @@
+*,
+::before,
+::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
-/* ================ selection ================ */
-.selection {
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    font-family: Geometria, Arial, sans-serif;
+    background-color: #3a3737;
+    color: #ccc;
+    user-select: none;
+    overflow: hidden;
+}
+
+.svg-wrap {
+    border: 10px ridge gray;
+    background-color: rgb(46, 74, 75);
     position: absolute;
+    left: 130px;
+    top: 50px;
+}
+
+.group {
+    outline: 1px dashed gold;
+}
+
+
+/* ================ capture ================ */
+.capture {
+    position: absolute;
+    z-index: 9999;
     outline: 1px solid white;
-    /* display: none; */
-    z-index: 999;
-  }
-  
-  .selection__size {
+}
+
+.capture__size {
     position: absolute;
     width: 20px;
     height: 20px;
     background-color: blue;
     border: 1px solid white;
     border-radius: 50%;
-    transition: 0.3s;
+    transition: 0.5s;
     cursor: pointer;
     z-index: 1;
-  }
-  
-  .selection__size--top-left {
+}
+
+.capture__size--top-left {
     top: -20px;
     left: -20px;
-  }
-  
-  .selection__size--top-right {
+}
+
+.capture__size--top-right {
     top: -20px;
     right: -20px;
-  }
-  
-  .selection__size--bottom-left {
+}
+
+.capture__size--bottom-left {
     left: -20px;
     bottom: -20px;
-  }
-  
-  .selection__size--bottom-right {
+}
+
+.capture__size--bottom-right {
     right: -20px;
     bottom: -20px;
-  }
-  
-  .selection__rotate {
+}
+
+.capture__rotate {
     position: absolute;
     width: 35px;
     height: 35px;
@@ -48,15 +80,15 @@
     cursor: pointer;
     transition: 0.3s;
     clip-path: circle(150px at 0 100px);
-  }
+}
 
-  .selection__rotate--top-left {
+.capture__rotate--top-left {
     top: -35px;
     left: -35px;
     overflow: hidden;
-  }
+}
 
-  .selection__rotate--top-left::before {
+.capture__rotate--top-left::before {
     content: "up";
     position: absolute;
     top: 0px;
@@ -68,26 +100,26 @@
     line-height: 10px;
     z-index: -1;
 
-  }
-  
-  .selection__rotate--top-right {
+}
+
+.capture__rotate--top-right {
     top: -35px;
     right: -35px;
-  }
-  
-  .selection__rotate--bottom-left {
+}
+
+.capture__rotate--bottom-left {
     left: -35px;
     bottom: -35px;
-  }
-  
-  .selection__rotate--bottom-right {
+}
+
+.capture__rotate--bottom-right {
     right: -35px;
     bottom: -35px;
-  }
-  
-  
-  /* ****************** out ****************** */
-  .selection__out-row {
+}
+
+
+/* ****************** out ****************** */
+.panel {
     outline: 3px groove #ccc;
     position: absolute;
     top: 100%;
@@ -100,26 +132,30 @@
     /* background-color: black; */
     color: white;
     z-index: 999;
-  }
-  
-  .selection__out {
+}
+
+.panel__out {
     width: 100%;
     text-align: left;
     display: flex;
     justify-content: space-between;
     font-family: monospace;
-  }
-  
-  .selection__out-text {
+}
+
+.panel__output {
     margin-left: 20px;
-  }
-  
-  .selection__out--reset {
+}
+
+.panel__out--reset {
     outline: none;
     margin-top: 5px;
     background-color: red;
     width: 100%;
     text-align: center;
     justify-content: center;
-  }
-  
+}
+
+
+
+
+
