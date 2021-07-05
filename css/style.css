@@ -10,7 +10,7 @@ html,
 body {
   height: 100%;
   font-family: Geometria;
-  background-color: #2C7580;
+  background-color: #3a3737;
   color: #ccc;
   user-select: none;
   overflow: hidden;
@@ -34,15 +34,6 @@ img {
   border-radius: 50%;
 }
 
-/* .wrapper {
-  position: relative;
-  outline: 1px dashed black;
-  margin: 50px;
-  position: relative;
-  padding: 10px;
-  width: 400px;
-} */
-
 .img1 {
   top: 50px;
   left: 50px;
@@ -53,123 +44,23 @@ img {
   left: 250px;
 }
 
-
 .img3 {
   top: 150px;
   left: 400px;
 }
 
 .svg {
+  border: 10px ridge gray;
+  background-color: rgb(46, 74, 75);
   position: absolute;
-  right: 30px;
-  bottom: 30px;
+  left: 130px;
+  top: 50px;
 }
 
-/* ================ megaclass ================ */
-.megaclass {
-  position: absolute;
-  outline: 1px solid darkblue;
-  /* display: none; */
-  z-index: 999;
+.group {
+  outline: 1px dashed gold;
+
 }
-
-.megaclass__size {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: blue;
-  transition: 0.3s;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.megaclass__size--top-left {
-  top: -10px;
-  left: -10px;
-}
-
-.megaclass__size--top-right {
-  top: -10px;
-  right: -10px;
-}
-
-.megaclass__size--bottom-left {
-  left: -10px;
-  bottom: -10px;
-}
-
-.megaclass__size--bottom-right {
-  right: -10px;
-  bottom: -10px;
-}
-
-.megaclass__rotate {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  border: 3px groove darkblue;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.megaclass__rotate--top-left {
-  top: -30px;
-  left: -30px;
-}
-
-.megaclass__rotate--top-right {
-  top: -30px;
-  right: -30px;
-}
-
-.megaclass__rotate--bottom-left {
-  left: -30px;
-  bottom: -30px;
-}
-
-.megaclass__rotate--bottom-right {
-  right: -30px;
-  bottom: -30px;
-}
-
-
-/* ****************** out ****************** */
-.megaclass__out-row {
-  outline: 1px solid darkblue;
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, 40%);
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-  min-width: 80px;
-  background-color: black;
-  color: white;
-  z-index: 999;
-}
-
-.megaclass__out {
-  width: 100%;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  font-family: monospace;
-}
-
-.megaclass__out-text {
-  margin-left: 20px;
-}
-
-.megaclass__out--reset {
-  outline: none;
-  margin-top: 5px;
-  background-color: red;
-  width: 100%;
-  text-align: center;
-  justify-content: center;
-}
-
 
 
 
