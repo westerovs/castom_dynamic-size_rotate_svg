@@ -1,6 +1,6 @@
 import subjx from 'subjx';
 import 'subjx/dist/style/subjx.css';
-
+console.log('test commit')
 // Event names
 const EVENTS = [
     'dragStart',
